@@ -1,18 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import axios from 'axios';
+
+import Results from './components/Results';
+import { API_BASE_URL } from './constants/api';
 
 const App = () => {
   const [data, setData] = useState(null);
   const [query, setQuery] = useState('Harry Potter');
-  const [url, setUrl] = useState('https://www.googleapis.com/books/v1/volumes?q=harrypotter');
+  const [url, setUrl] = useState('');
 
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  const BASE_URL = 'https://www.googleapis.com/books/v1/volumes?q=';
-
-  
   useEffect(() => {
+    if(url === '') return;
+
     const getData = async () => {
       setIsLoading(true);
       setIsError(false);
@@ -31,14 +33,14 @@ const App = () => {
 
     getData();
   }, [url]);
-
+  
   return (
-    <div className="App">
+    <>
       <h1>myreadingtime.digital</h1>
       <p>Search for a book:</p>
       <form
         onSubmit={event => {
-          setUrl(`${BASE_URL}${query}`);
+          setUrl(`${API_BASE_URL}${query}`);
           event.preventDefault();
         }}
       >
@@ -58,19 +60,12 @@ const App = () => {
 
       {isLoading ? (
         <p>Loading...</p>
-      ) : (
-        <ul>
-          {console.log(data)}
-          {data && data.items.map(item => {
-            return (
-              <li key={`item_${item.id}`}>
-                {item.volumeInfo.title}
-              </li>
-            )
-          })}
-        </ul>
+      ) : ( 
+        data && (
+          <Results data={data} />
+        )
       )}
-    </div>
+    </>
   );
 }
 
