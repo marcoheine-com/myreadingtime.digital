@@ -14,6 +14,8 @@ const Results = ({ data, searchQuery }) => (
 							src={volumeInfo.imageLinks.smallThumbnail}
 						></img>
 					)}
+					<button>Add to "Want to read" - list</button>
+					<button>Add to "Did read" - list</button>
 				</li>
 			))}
 		</ul>

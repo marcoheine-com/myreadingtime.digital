@@ -1,47 +1,83 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
 
 import Results from './components/Results';
-import { API_BASE_URL } from './constants/api';
+import { API_BASE_URL, START_INDEX } from './constants/api';
+import { IS_LOADING, IS_SUCCESS, IS_ERROR } from './constants/searchTypes';
+
+export const Main = styled.main`
+	margin: 0 auto;
+	max-width: 600px;
+`;
 
 const App = () => {
-	const [data, setData] = useState(null);
 	const [query, setQuery] = useState('Harry Potter');
 	const [searchQuery, setSearchQuery] = useState('');
 	const [url, setUrl] = useState('');
+	const [index, setIndex] = useState(0);
 
-	const [isLoading, setIsLoading] = useState(false);
-	const [isError, setIsError] = useState(false);
+	const dataFetchReducer = (state, action) => {
+		console.log(state);
+		switch (action.type) {
+			case IS_LOADING:
+				return {
+					...state,
+					isLoading: true,
+					isError: false
+				};
+			case IS_SUCCESS:
+				return {
+					...state,
+					isLoading: false,
+					isError: false,
+					data: action.payload
+				};
+			case IS_ERROR:
+				return {
+					...state,
+					isLoading: false,
+					isError: true
+				};
+			default:
+				throw new Error();
+		}
+	};
+
+	const [state, dispatch] = useReducer(dataFetchReducer, {
+		isLoading: false,
+		isError: false,
+		data: null
+	});
 
 	useEffect(() => {
 		if (url === '') return;
 
 		const getData = async () => {
-			setIsLoading(true);
-			setIsError(false);
-
+			dispatch({ type: IS_LOADING });
 			try {
 				const { data } = await axios.get(url);
-
-				setData(data);
+				dispatch({ type: IS_SUCCESS, payload: data });
 			} catch (error) {
-				console.error(error);
-
-				setIsError(true);
+				dispatch({ type: IS_ERROR });
 			}
-			setIsLoading(false);
 		};
 
 		getData();
 	}, [url]);
 
+	const handleOnclick = () => {
+		setIndex(index + 10);
+		setUrl(`${API_BASE_URL}${query}&${START_INDEX}=${index}`);
+	};
+
 	return (
-		<>
+		<Main>
 			<h1>myreadingtime.digital</h1>
 			<p>Search for a book:</p>
 			<form
 				onSubmit={event => {
-					setUrl(`${API_BASE_URL}${query}`);
+					setUrl(`${API_BASE_URL}${query}&${START_INDEX}=${index}`);
 					setSearchQuery(query);
 					event.preventDefault();
 				}}
@@ -56,14 +92,19 @@ const App = () => {
 				</button>
 			</form>
 
-			{isError && <p>Oh oh! Something went wrong. Please try again!</p>}
+			{state.isError && <p>Oh oh! Something went wrong. Please try again!</p>}
 
-			{isLoading ? (
+			{state.isLoading ? (
 				<p>Loading...</p>
 			) : (
-				data && <Results data={data} searchQuery={searchQuery} />
+				state.data && (
+					<>
+						<Results data={state.data} searchQuery={searchQuery} />
+						<button onClick={handleOnclick}>Load more books</button>
+					</>
+				)
 			)}
-		</>
+		</Main>
 	);
 };
 
