@@ -18,7 +18,6 @@ const App = () => {
 	const [index, setIndex] = useState(0);
 
 	const dataFetchReducer = (state, action) => {
-		console.log(state);
 		switch (action.type) {
 			case IS_LOADING:
 				return {
@@ -71,6 +70,8 @@ const App = () => {
 		setUrl(`${API_BASE_URL}${query}&${START_INDEX}=${index}`);
 	};
 
+	const { isLoading, isError, data } = state;
+
 	return (
 		<Main>
 			<h1>myreadingtime.digital</h1>
@@ -92,14 +93,14 @@ const App = () => {
 				</button>
 			</form>
 
-			{state.isError && <p>Oh oh! Something went wrong. Please try again!</p>}
+			{isError && <p>Oh oh! Something went wrong. Please try again!</p>}
 
-			{state.isLoading ? (
+			{isLoading ? (
 				<p>Loading...</p>
 			) : (
-				state.data && (
+				data && (
 					<>
-						<Results data={state.data} searchQuery={searchQuery} />
+						<Results data={data} searchQuery={searchQuery} />
 						<button onClick={handleOnclick}>Load more books</button>
 					</>
 				)
