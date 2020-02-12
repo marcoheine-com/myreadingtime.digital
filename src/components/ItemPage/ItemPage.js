@@ -7,11 +7,9 @@ const ItemPage = () => {
 	const [state, setUrl] = useGoogleBooksApi();
 	const { id } = useParams();
 
-	const cleanId = id && id.slice(3);
-
 	useEffect(() => {
-		setUrl(`${API_BASE_URL}/${cleanId}`);
-	}, [cleanId, setUrl]);
+		setUrl(`${API_BASE_URL}/${id}`);
+	}, [id, setUrl]);
 
 	const { isLoading, isError, data } = state;
 
@@ -24,7 +22,7 @@ const ItemPage = () => {
 			) : (
 				data && (
 					<>
-						<h1>ItemPage with id: {cleanId}</h1>
+						<h1>ItemPage with id: {id}</h1>
 						<h3>{data.volumeInfo.title}</h3>
 					</>
 				)

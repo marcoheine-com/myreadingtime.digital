@@ -6,7 +6,7 @@ const Results = ({ data, searchQuery }) => (
 		<ul>
 			{data.items.map(({ id, volumeInfo }) => (
 				<li key={`item_${id}`}>
-					<a href={`http://localhost:3000/book/id:${id}`}>
+					<a href={`/book/${id}`}>
 						<h3>{volumeInfo.title}</h3>
 					</a>
 					<h4>{volumeInfo.authors && `${volumeInfo.authors}`}</h4>
