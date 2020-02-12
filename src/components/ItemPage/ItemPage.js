@@ -4,7 +4,7 @@ import useGoogleBooksApi from '../../hooks/useGoogleBooksApi';
 import { API_BASE_URL } from '../../constants/api';
 
 const ItemPage = () => {
-	const [state, setUrl] = useGoogleBooksApi();
+	const { state, setUrl } = useGoogleBooksApi();
 	const { id } = useParams();
 
 	useEffect(() => {
@@ -14,7 +14,8 @@ const ItemPage = () => {
 	const { isLoading, isError, data } = state;
 
 	return (
-		<section data-testid='itemPage'>
+		<section>
+			<h1>ItemPage</h1>
 			{isError && <p>Oh oh! Something went wrong. Please try again!</p>}
 
 			{isLoading ? (

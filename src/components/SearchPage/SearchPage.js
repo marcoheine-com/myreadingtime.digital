@@ -15,7 +15,7 @@ const App = () => {
 	const [searchQuery, setSearchQuery] = useState('');
 	const [index, setIndex] = useState(0);
 
-	const [state, setUrl] = useGoogleBooksAPI();
+	const { state, setUrl } = useGoogleBooksAPI();
 
 	const handleOnclick = () => {
 		setIndex(index + 10);

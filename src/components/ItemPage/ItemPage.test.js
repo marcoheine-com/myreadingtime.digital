@@ -1,11 +1,19 @@
 import React from 'react';
-import renderWithRouter from '../../utils/testUtils';
+import { Router } from 'react-router-dom';
+import { createMemoryHistory } from 'history'
+import { render } from '@testing-library/react';
 import ItemPage from './ItemPage';
 import mockData from '../../constants/mockData';
 
 describe('ItemPage', () => {
-	test('renders', () => {
-		const { getByText } = renderWithRouter(<ItemPage data={mockData}/>);
-		expect(getByText('ItemPage with id:')).toBeInTheDocument();
+	test('renders on inital load', () => {
+		const history = createMemoryHistory();
+		const { getByText } = render(
+			<Router history={history}>
+				<ItemPage data={mockData}/>
+			</Router>
+		);
+
+		expect(getByText('ItemPage')).toBeInTheDocument();
 	});
 });
