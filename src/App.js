@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import SearchPage from './components/SearchPage';
+import ItemPage from './components/ItemPage';
 
 const App = () => (
 	<Router>
@@ -18,7 +19,7 @@ const App = () => (
 			</ul>
 		</nav>
 		<Switch>
-			<Route path='/'>
+			<Route exact path='/'>
 				<SearchPage />
 			</Route>
 			<Route path='/want-to-read'>
@@ -26,6 +27,9 @@ const App = () => (
 			</Route>
 			<Route path='/books-I-red'>
 				<SearchPage />
+			</Route>
+			<Route path='/book/:id'>
+				<ItemPage />
 			</Route>
 		</Switch>
 	</Router>

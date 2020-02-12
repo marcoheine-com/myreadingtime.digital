@@ -1,9 +1,19 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import renderWithRouter from './utils/testUtils';
 import App from './App';
 
-test('renders app title', () => {
-	const { getByText } = render(<App />);
-	const linkElement = getByText(/myreadingtime.digita/i);
-	expect(linkElement).toBeInTheDocument();
+test('renders home page', () => {
+	const { container } = renderWithRouter(<App />, {
+		route: '/'
+	});
+
+	expect(container.innerHTML).toMatch('Search for a book:');
+});
+
+test('renders home page', () => {
+	const { getByTestId } = renderWithRouter(<App />, {
+		route: '/:id'
+	});
+
+	expect(getByTestId('itemPage')).toBeInTheDocument();
 });

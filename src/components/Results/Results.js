@@ -6,7 +6,9 @@ const Results = ({ data, searchQuery }) => (
 		<ul>
 			{data.items.map(({ id, volumeInfo }) => (
 				<li key={`item_${id}`}>
-					<h3>{volumeInfo.title}</h3>
+					<a href={`http://localhost:3000/book/id:${id}`}>
+						<h3>{volumeInfo.title}</h3>
+					</a>
 					<h4>{volumeInfo.authors && `${volumeInfo.authors}`}</h4>
 					{volumeInfo.imageLinks && (
 						<img

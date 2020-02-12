@@ -29,7 +29,7 @@ const useGoogleBooksAPI = () => {
 		getData();
 	}, [url]);
 
-	return [state, setUrl];
+	return [state, setUrl, url];
 };
 
 export default useGoogleBooksAPI;

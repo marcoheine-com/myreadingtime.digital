@@ -14,11 +14,12 @@ const App = () => {
 	const [query, setQuery] = useState('Harry Potter');
 	const [searchQuery, setSearchQuery] = useState('');
 	const [index, setIndex] = useState(0);
+
 	const [state, setUrl] = useGoogleBooksAPI();
 
 	const handleOnclick = () => {
 		setIndex(index + 10);
-		setUrl(`${API_BASE_URL}${query}&${START_INDEX}=${index}`);
+		setUrl(`${API_BASE_URL}?q=${query}&${START_INDEX}=${index}`);
 	};
 
 	const { isLoading, isError, data } = state;
@@ -29,7 +30,7 @@ const App = () => {
 			<p>Search for a book:</p>
 			<form
 				onSubmit={event => {
-					setUrl(`${API_BASE_URL}${query}&${START_INDEX}=${index}`);
+					setUrl(`${API_BASE_URL}?q=${query}&${START_INDEX}=${index}`);
 					setSearchQuery(query);
 					event.preventDefault();
 				}}
