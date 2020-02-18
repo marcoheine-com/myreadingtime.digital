@@ -4,13 +4,13 @@ import useGoogleBooksApi from './useGoogleBooksApi';
 test('should use GoogleBooksApi default value and state', () => {
   const { result } = renderHook(() => useGoogleBooksApi());
   const { state, url } = result.current;
-  const { isLoading, isError, data } = state;
+  const { isLoading, isError, results } = state;
 
   expect(url).toBe('');
 
   expect(isLoading).toBe(false);
   expect(isError).toBe(false);
-  expect(data).toBe(null);
+  expect(results).toBe(null);
 });
 
 test('should use GoogleBooksApi with set url', () => {

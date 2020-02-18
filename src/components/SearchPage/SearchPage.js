@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useApolloClient } from "@apollo/react-hooks";
 import styled from 'styled-components';
 
 import Results from '../Results';
@@ -16,13 +17,18 @@ const App = () => {
   const [index, setIndex] = useState(0);
 
   const { state, setUrl } = useGoogleBooksAPI();
+  
+  const client = useApolloClient();
+
+  console.log(client);
 
   const handleOnclick = () => {
     setIndex(index + 10);
     setUrl(`${API_BASE_URL}?q=${query}&${START_INDEX}=${index}`);
+    client.writeData({ data: { results: results } })
   };
 
-  const { isLoading, isError, data } = state;
+  const { isLoading, isError, results } = state;
 
   return (
     <Main>
@@ -33,6 +39,7 @@ const App = () => {
           setUrl(`${API_BASE_URL}?q=${query}&${START_INDEX}=${index}`);
           setSearchQuery(query);
           event.preventDefault();
+          client.writeData({ data: { results: results } })
         }}
       >
         <input
@@ -50,9 +57,9 @@ const App = () => {
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        data && (
+        results && (
           <>
-            <Results data={data} searchQuery={searchQuery} />
+            <Results data={results} searchQuery={searchQuery} />
             <button onClick={handleOnclick}>Load more books</button>
           </>
         )

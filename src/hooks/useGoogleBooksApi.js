@@ -10,7 +10,7 @@ const useGoogleBooksAPI = () => {
   const [state, dispatch] = useReducer(dataFetchReducer, {
     isLoading: false,
     isError: false,
-    data: null
+    results: null
   });
 
   useEffect(() => {

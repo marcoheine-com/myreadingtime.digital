@@ -13,7 +13,7 @@ const dataFetchReducer = (state, action) => {
         ...state,
         isLoading: false,
         isError: false,
-        data: action.payload
+        results: action.payload
       };
     case IS_ERROR:
       return {
