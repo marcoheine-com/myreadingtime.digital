@@ -1,25 +1,14 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import SearchPage from './components/SearchPage';
 import ItemPage from './components/ItemPage';
 import WantToReadPage from './components/WantToReadPage';
 import DidReadPage from './components/DidReadPage';
+import Navigation from './components/Navigation';
 
 const App = () => (
   <Router>
-    <nav>
-      <ul>
-        <li>
-          <Link to='/'>Home</Link>
-        </li>
-        <li>
-          <Link to='/want-to-read'>Want to read</Link>
-        </li>
-        <li>
-          <Link to='/books-I-red'>Books I red</Link>
-        </li>
-      </ul>
-    </nav>
+    <Navigation />
     <Switch>
       <Route exact path='/'>
         <SearchPage />
