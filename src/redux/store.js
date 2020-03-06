@@ -1,4 +1,5 @@
 import { createSlice, configureStore } from '@reduxjs/toolkit';
+import { loadState, saveState } from '../utils/localStorage';
 
 export const wantToReadSlice = createSlice({
   name: 'wantToRead',
@@ -33,6 +34,7 @@ export const didReadSlice = createSlice({
   reducers: {
     addToDidRead: (state, action) => {
       const { id, authors, smallThumbnail, title } = action.payload;
+      if (state.items.find(item => item.id === id)) return state;
       state.items.push({ id, authors, smallThumbnail, title });
     },
     removeFromDidRead: (state, action) => {
@@ -47,11 +49,18 @@ export const didReadSlice = createSlice({
 
 export const { addToDidRead, removeFromDidRead } = didReadSlice.actions;
 
+const persistedState = loadState();
+
 const store = configureStore({
   reducer: {
     wantToRead: wantToReadSlice.reducer,
     didRead: didReadSlice.reducer
-  }
+  },
+  preloadedState: persistedState
+});
+
+store.subscribe(() => {
+  saveState(store.getState());
 });
 
 export default store;
