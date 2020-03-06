@@ -9,6 +9,7 @@ export const wantToReadSlice = createSlice({
   reducers: {
     addToWantToRead: (state, action) => {
       const { id, authors, smallThumbnail, title } = action.payload;
+      if (state.items.find(item => item.id === id)) return state;
       state.items.push({ id, authors, smallThumbnail, title });
     },
     removeFromWantToRead: (state, action) => {
@@ -60,7 +61,10 @@ const store = configureStore({
 });
 
 store.subscribe(() => {
-  saveState(store.getState());
+  saveState({
+    wantToRead: store.getState().wantToRead,
+    didRead: store.getState().didRead
+  });
 });
 
 export default store;
