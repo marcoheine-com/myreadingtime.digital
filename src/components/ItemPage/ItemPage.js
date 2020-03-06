@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import useGoogleBooksApi from '../../hooks/useGoogleBooksApi';
 import { API_BASE_URL } from '../../constants/api';
 
+import * as ui from '../../ui';
+
 const ItemPage = () => {
   const { state, setUrl } = useGoogleBooksApi();
   const { id } = useParams();
@@ -14,7 +16,7 @@ const ItemPage = () => {
   const { isLoading, isError, data } = state;
 
   return (
-    <section>
+    <ui.Main>
       <h1>ItemPage</h1>
       {isError && <p>Oh oh! Something went wrong. Please try again!</p>}
 
@@ -28,7 +30,7 @@ const ItemPage = () => {
           </>
         )
       )}
-    </section>
+    </ui.Main>
   );
 };
 

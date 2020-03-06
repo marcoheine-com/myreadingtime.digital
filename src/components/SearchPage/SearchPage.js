@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
 import { useHistory, useLocation } from 'react-router-dom';
+import useGoogleBooksAPI from '../../hooks/useGoogleBooksApi';
 
 import Results from '../Results';
-import useGoogleBooksAPI from '../../hooks/useGoogleBooksApi';
 import { API_BASE_URL, START_INDEX } from '../../constants/api';
 
-export const Main = styled.main`
-  margin: 0 auto;
-  max-width: 600px;
-`;
+import * as ui from '../../ui';
 
 const App = () => {
   const [query, setQuery] = useState('');
@@ -18,6 +14,7 @@ const App = () => {
 
   const { state, setUrl } = useGoogleBooksAPI();
   const { isLoading, isError, data } = state;
+
   const location = useLocation();
   const history = useHistory();
 
@@ -27,7 +24,7 @@ const App = () => {
     history.push(`?q=${query}&${START_INDEX}=${index}`);
   };
 
-  const handleOnclick = () => {
+  const handleOnClick = () => {
     setIndex(index + 10);
     history.push(`?q=${query}&${START_INDEX}=${index}`);
   };
@@ -39,7 +36,7 @@ const App = () => {
   }, [location.search, setUrl]);
 
   return (
-    <Main>
+    <ui.Main>
       <h1>myreadingtime.digital</h1>
       <p>Search for a book:</p>
       <form onSubmit={handleSubmit}>
@@ -62,13 +59,14 @@ const App = () => {
         data && (
           <>
             <Results data={data} searchQuery={searchQuery} />
-            <button onClick={handleOnclick} disabled={query === ''}>
+
+            <button onClick={handleOnClick} disabled={query === ''}>
               Load more books
             </button>
           </>
         )
       )}
-    </Main>
+    </ui.Main>
   );
 };
 

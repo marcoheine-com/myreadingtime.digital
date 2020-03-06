@@ -11,7 +11,7 @@ const Navigation = () => (
         <Link to='/want-to-read'>Want to read</Link>
       </li>
       <li>
-        <Link to='/books-I-red'>Books I red</Link>
+        <Link to='/books-I-red'>Did read</Link>
       </li>
     </ul>
   </nav>

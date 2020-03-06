@@ -13,7 +13,7 @@ const mockData = {
         title: 'Pikachu and a lot of Thunder',
         authors: ['Peter Peters'],
         imageLinks: {
-          smallThumbNail: 'pathTo/smallThumbNail'
+          smallThumbnail: 'pathTo/smallThumbNail'
         }
       }
     }
