@@ -18,13 +18,12 @@ const Results = ({ data, searchQuery }) => {
             <li key={`item_${id}`}>
               <Link to={`/book/${id}`}>
                 <h3>{title}</h3>
+
+                <h4>{authors && `${authors}`}</h4>
+                {smallThumbnail && (
+                  <img alt={`Thumbnail of ${title}`} src={smallThumbnail}></img>
+                )}
               </Link>
-
-              <h4>{authors && `${authors}`}</h4>
-              {smallThumbnail && (
-                <img alt={`Thumbnail of ${title}`} src={smallThumbnail}></img>
-              )}
-
               <button
                 onClick={() =>
                   dispatch(

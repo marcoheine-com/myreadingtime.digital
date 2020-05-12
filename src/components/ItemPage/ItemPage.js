@@ -17,7 +17,6 @@ const ItemPage = () => {
 
   return (
     <ui.Main>
-      <h1>ItemPage</h1>
       {isError && <p>Oh oh! Something went wrong. Please try again!</p>}
 
       {isLoading ? (
@@ -25,8 +24,39 @@ const ItemPage = () => {
       ) : (
         data && (
           <>
-            <h1>ItemPage with id: {id}</h1>
             <h3>{data.volumeInfo.title}</h3>
+
+            {data.volumeInfo.authors &&
+              data.volumeInfo.authors.map((author) => (
+                <h4 key={author}>{author}</h4>
+              ))}
+            <p>{data.volumeInfo.publishedDate}</p>
+            <p>{data.volumeInfo.publisher}</p>
+
+            <p>{data.volumeInfo.pageCount} pages</p>
+
+            {data.volumeInfo.categories && (
+              <ul>
+                {data.volumeInfo.categories.map((category) => (
+                  <li key={category}>{category}</li>
+                ))}
+              </ul>
+            )}
+
+            {data.volumeInfo.imageLinks &&
+              data.volumeInfo.imageLinks.smallThumbnail && (
+                <img
+                  alt={`Thumbnail of ${data.volumeInfo.title}`}
+                  src={data.volumeInfo.imageLinks.smallThumbnail}
+                ></img>
+              )}
+            <p>
+              <i
+                dangerouslySetInnerHTML={{
+                  __html: data.volumeInfo.description,
+                }}
+              />
+            </p>
           </>
         )
       )}
