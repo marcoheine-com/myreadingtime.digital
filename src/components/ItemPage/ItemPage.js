@@ -35,6 +35,15 @@ const ItemPage = () => {
 
             <p>{data.volumeInfo.pageCount} pages</p>
 
+            <p>
+              rating:{' '}
+              {`${data.volumeInfo.averageRating}/5 (${data.volumeInfo.ratingsCount})`}
+            </p>
+
+            {data.saleInfo.listPrice && (
+              <p>price: {`${data.saleInfo.listPrice.amount}€`}</p>
+            )}
+
             {data.volumeInfo.categories && (
               <ul>
                 {data.volumeInfo.categories.map((category) => (
