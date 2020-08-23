@@ -9,10 +9,12 @@ import ItemPage from './components/ItemPage';
 import WantToReadPage from './components/WantToReadPage';
 import DidReadPage from './components/DidReadPage';
 import Navigation from './components/Navigation';
+import Header from './components/Header';
 
 const App = () => (
   <Provider store={store}>
     <Router>
+      <Header />
       <Navigation />
       <Switch>
         <Route exact path='/'>
