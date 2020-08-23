@@ -1,19 +1,20 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
-import useGoogleBooksApi from '../../hooks/useGoogleBooksApi';
+import { useQuery } from 'react-query';
 import { API_BASE_URL } from '../../constants/api';
 
 import * as ui from '../../ui';
 
 const ItemPage = () => {
-  const { state, setUrl } = useGoogleBooksApi();
   const { id } = useParams();
 
-  useEffect(() => {
-    setUrl(`${API_BASE_URL}/${id}`);
-  }, [id, setUrl]);
+  const fetchData = async () => {
+    const response = await fetch(`${API_BASE_URL}/${id}`);
+    const data = await response.json();
+    return data;
+  };
 
-  const { isLoading, isError, data } = state;
+  const { isLoading, isError, data } = useQuery('book', fetchData);
 
   return (
     <ui.Main>

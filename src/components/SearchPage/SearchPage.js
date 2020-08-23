@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
-import useGoogleBooksAPI from '../../hooks/useGoogleBooksApi';
+import React, { useState } from 'react';
+import { useQuery } from 'react-query';
+import { useHistory } from 'react-router-dom';
 
 import Results from '../Results';
 import { API_BASE_URL, START_INDEX } from '../../constants/api';
@@ -12,13 +12,20 @@ const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [index, setIndex] = useState(0);
 
-  const { state, setUrl } = useGoogleBooksAPI();
-  const { isLoading, isError, data } = state;
+  const fetchData = async () => {
+    const response = await fetch(`${API_BASE_URL}?q=${query}`);
+    const data = await response.json();
+    return data;
+  };
 
-  const location = useLocation();
+  const { isLoading, isError, data, refetch } = useQuery('books', fetchData, {
+    enabled: false,
+  });
+
   const history = useHistory();
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
+    refetch();
     setSearchQuery(query);
     event.preventDefault();
     history.push(`?q=${query}&${START_INDEX}=${index}`);
@@ -29,12 +36,6 @@ const App = () => {
     history.push(`?q=${query}&${START_INDEX}=${index}`);
   };
 
-  useEffect(() => {
-    if (location.search === '') return;
-
-    setUrl(`${API_BASE_URL}${location.search}`);
-  }, [location.search, setUrl]);
-
   return (
     <ui.Main>
       <h1>myreadingtime.digital</h1>
@@ -43,7 +44,7 @@ const App = () => {
         <input
           type='text'
           value={query}
-          onChange={event => setQuery(event.target.value)}
+          onChange={(event) => setQuery(event.target.value)}
           placeholder='Harry Potter'
         />
         <button type='submit' disabled={query === ''}>
