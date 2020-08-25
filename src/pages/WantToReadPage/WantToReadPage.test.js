@@ -5,6 +5,6 @@ import WantToReadPage from './WantToReadPage';
 describe('', () => {
   test('should render', () => {
     const { getByText } = render(<WantToReadPage />);
-    expect(getByText('WantToReadPage')).toBeInTheDocument();
+    expect(getByText('Want to read')).toBeInTheDocument();
   });
 });

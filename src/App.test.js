@@ -4,9 +4,9 @@ import { createMemoryHistory } from 'history';
 import { render } from './test/utils';
 
 import App from './App';
-import WantToReadPage from './components/WantToReadPage';
-import ItemPage from './components/ItemPage';
-import DidReadPage from './components/DidReadPage';
+import WantToReadPage from './pages/WantToReadPage';
+import ItemPage from './pages/ItemPage';
+import DidReadPage from './pages/DidReadPage';
 
 describe('App', () => {
   test('renders home page', () => {
@@ -27,7 +27,7 @@ describe('App', () => {
     history.push('/want-to-read');
 
     expect(history.location.pathname).toBe('/want-to-read');
-    expect(container.innerHTML).toMatch('WantToReadPage');
+    expect(container.innerHTML).toMatch('Want to read');
   });
 
   test('renders ItemPage page', () => {
@@ -42,7 +42,6 @@ describe('App', () => {
     history.push('/book/:adfdfa');
 
     expect(history.location.pathname).toBe('/book/:adfdfa');
-    expect(container.innerHTML).toMatch('ItemPage');
   });
 
   test('renders books-I-red page', () => {
@@ -56,6 +55,6 @@ describe('App', () => {
     history.push('/books-I-red');
 
     expect(history.location.pathname).toBe('/books-I-red');
-    expect(container.innerHTML).toMatch('DidReadPage');
+    expect(container.innerHTML).toMatch('Did read');
   });
 });

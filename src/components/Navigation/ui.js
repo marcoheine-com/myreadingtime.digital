@@ -9,6 +9,7 @@ export const List = styled.ul`
   display: flex;
   list-style-type: none;
   margin: 0;
+  padding: 0;
 `;
 
 export const ListItem = styled.li`
@@ -18,7 +19,7 @@ export const ListItem = styled.li`
   }
   
   a {
+    display: block;
     text-decoration: none;
-    padding: 20px;
   }
 `;

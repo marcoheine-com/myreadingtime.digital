@@ -1,15 +1,17 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
-
 import store from './redux/store';
 
-import SearchPage from './components/SearchPage';
-import ItemPage from './components/ItemPage';
-import WantToReadPage from './components/WantToReadPage';
-import DidReadPage from './components/DidReadPage';
+import GlobalStyles from './globalStyles';
+
+import SearchPage from './pages/SearchPage';
+import ItemPage from './pages/ItemPage';
+import WantToReadPage from './pages/WantToReadPage';
+import DidReadPage from './pages/DidReadPage';
 import Navigation from './components/Navigation';
 import Header from './components/Header';
+import Footer from './components/Footer';
 
 const App = () => (
   <Provider store={store}>
@@ -30,7 +32,9 @@ const App = () => (
           <ItemPage />
         </Route>
       </Switch>
+      <Footer />
     </Router>
+    <GlobalStyles />
   </Provider>
 );
 

@@ -5,6 +5,6 @@ import DidReadPage from './DidReadPage';
 describe('', () => {
   test('should render', () => {
     const { getByText } = render(<DidReadPage />);
-    expect(getByText('DidReadPage')).toBeInTheDocument();
+    expect(getByText('Did Read')).toBeInTheDocument();
   });
 });

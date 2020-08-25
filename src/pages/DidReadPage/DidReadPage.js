@@ -7,16 +7,16 @@ import * as ui from '../../ui';
 
 const DidReadPage = () => {
   const dispatch = useDispatch();
-  const results = useSelector(state => state.didRead.items);
+  const results = useSelector((state) => state.didRead.items);
 
   return (
     <ui.Main>
-      <h1>DidReadPage</h1>
+      <h1>Did Read</h1>
       {results.length === 0 ? (
         <>
           <p>You have no books on your "Did read" - list yet.</p>
           <p>
-            Head over to the <a href='/'>Search Page</a> and add some!
+            Head over to the <Link to='/'>Search Page</Link> and add some!
           </p>
         </>
       ) : (

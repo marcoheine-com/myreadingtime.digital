@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import useGoogleBooksAPI from '../../hooks/useGoogleBooksApi';
 
-import Results from '../Results';
+import Results from '../../components/Results';
+import Features from '../../components/Features';
 import { API_BASE_URL, START_INDEX } from '../../constants/api';
 
-import * as ui from '../../ui';
+import * as ui from './ui';
 
 const App = () => {
   const [query, setQuery] = useState('');
@@ -18,7 +19,7 @@ const App = () => {
   const location = useLocation();
   const history = useHistory();
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     setSearchQuery(query);
     event.preventDefault();
     history.push(`?q=${query}&${START_INDEX}=${index}`);
@@ -37,19 +38,20 @@ const App = () => {
 
   return (
     <ui.Main>
-      <h1>myreadingtime.digital</h1>
-      <p>Search for a book:</p>
-      <form onSubmit={handleSubmit}>
-        <input
-          type='text'
-          value={query}
-          onChange={event => setQuery(event.target.value)}
-          placeholder='Harry Potter'
-        />
-        <button type='submit' disabled={query === ''}>
-          Search
-        </button>
-      </form>
+      <ui.SearchContainer>
+        <p>Search for a book:</p>
+        <form onSubmit={handleSubmit}>
+          <input
+            type='text'
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder='Harry Potter'
+          />
+          <button type='submit' disabled={query === ''}>
+            Search
+          </button>
+        </form>
+      </ui.SearchContainer>
 
       {isError && <p>Oh oh! Something went wrong. Please try again!</p>}
 
@@ -66,6 +68,8 @@ const App = () => {
           </>
         )
       )}
+
+      <Features />
     </ui.Main>
   );
 };

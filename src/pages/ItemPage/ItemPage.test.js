@@ -7,6 +7,6 @@ describe('ItemPage', () => {
   test('renders on inital load', () => {
     const { getByText } = render(<ItemPage data={mockData} />);
 
-    expect(getByText('ItemPage')).toBeInTheDocument();
+    expect(getByText('Loading...')).toBeInTheDocument();
   });
 });

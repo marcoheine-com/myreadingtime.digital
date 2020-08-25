@@ -6,17 +6,17 @@ import { removeFromWantToRead } from '../../redux/store';
 import * as ui from '../../ui';
 
 const WantToReadPage = () => {
-  const results = useSelector(state => state.wantToRead.items);
+  const results = useSelector((state) => state.wantToRead.items);
   const dispatch = useDispatch();
 
   return (
     <ui.Main>
-      <h1>WantToReadPage</h1>
+      <h1>Want to read</h1>
       {results.length === 0 ? (
         <>
           <p>You have no books on your "Want to read" - list yet.</p>
           <p>
-            Head over to the <a href='/'>Search Page</a> and add some!
+            Head over to the <Link to='/'>Search Page</Link> and add some!
           </p>
         </>
       ) : (

@@ -17,11 +17,14 @@ const Navigation = () => {
     <ui.Navigation>
       <ui.List>
         <ui.ListItem>
-          <Link to='/'>Home</Link>
+          <Link to='/'>Search</Link>{' '}
         </ui.ListItem>
         <ui.ListItem>
           <Link to='/want-to-read'>Want to read</Link>{' '}
           {hasWantToReadItems && numOfWantToReadItems}
+        </ui.ListItem>
+        <ui.ListItem>
+          <Link to='/read'>Read</Link>{' '}
         </ui.ListItem>
         <ui.ListItem>
           <Link to='/books-I-red'>Did read</Link>{' '}
