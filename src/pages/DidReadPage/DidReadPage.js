@@ -2,40 +2,34 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeFromDidRead } from '../../redux/store';
-
-import * as ui from '../../ui';
+import BookListItem from '../../components/BookListItem';
+import Button from '../../components/Button';
+import * as ui from './ui';
 
 const DidReadPage = () => {
+  const results = useSelector((state) => state.didRead);
   const dispatch = useDispatch();
-  const results = useSelector((state) => state.didRead.items);
 
   return (
     <ui.Main>
-      <h1>Did Read</h1>
+      <ui.Headline>Did Read</ui.Headline>
       {results.length === 0 ? (
-        <>
+        <ui.NoData>
           <p>You have no books on your "Did read" - list yet.</p>
           <p>
             Head over to the <Link to='/'>Search Page</Link> and add some!
           </p>
-        </>
+        </ui.NoData>
       ) : (
         <>
           <ul>
-            {results.map(({ id, authors, smallThumbnail, title }) => (
-              <li key={`item_${id}`}>
-                <Link to={`/book/${id}`}>
-                  <h3>{title}</h3>
-                </Link>
-                <h4>{authors && `${authors}`}</h4>
-                {smallThumbnail && (
-                  <img alt={`Thumbnail of ${title}`} src={smallThumbnail}></img>
-                )}
-
-                <button onClick={() => dispatch(removeFromDidRead({ id }))}>
+            {results.map((result) => (
+              <ui.ItemWrapper key={`item_${result.id}`}>
+                <BookListItem resultData={result} />
+                <Button onClick={() => dispatch(removeFromDidRead(result.id))}>
                   Remove from "Did Read" - list
-                </button>
-              </li>
+                </Button>
+              </ui.ItemWrapper>
             ))}
           </ul>
         </>

@@ -4,11 +4,9 @@ import { useSelector } from 'react-redux';
 import * as ui from './ui';
 
 const Navigation = () => {
-  const numOfWantToReadItems = useSelector(
-    (state) => state.wantToRead.items.length
-  );
+  const numOfWantToReadItems = useSelector((state) => state.wantToRead.length);
 
-  const numOfDidReadItems = useSelector((state) => state.didRead.items.length);
+  const numOfDidReadItems = useSelector((state) => state.didRead.length);
 
   const hasWantToReadItems = numOfWantToReadItems > 0;
   const hasDidReadItems = numOfDidReadItems > 0;
@@ -20,15 +18,17 @@ const Navigation = () => {
           <Link to='/'>Search</Link>{' '}
         </ui.ListItem>
         <ui.ListItem>
-          <Link to='/want-to-read'>Want to read</Link>{' '}
-          {hasWantToReadItems && numOfWantToReadItems}
+          <Link to='/want-to-read'>
+            Want to read {hasWantToReadItems && <b>{numOfWantToReadItems}</b>}
+          </Link>
         </ui.ListItem>
         <ui.ListItem>
-          <Link to='/read'>Read</Link>{' '}
+          <Link to='/reading'>Reading</Link>{' '}
         </ui.ListItem>
         <ui.ListItem>
-          <Link to='/books-I-red'>Did read</Link>{' '}
-          {hasDidReadItems && numOfDidReadItems}
+          <Link to='/books-I-read'>
+            Did read {hasDidReadItems && <b>{numOfDidReadItems}</b>}
+          </Link>
         </ui.ListItem>
       </ui.List>
     </ui.Navigation>

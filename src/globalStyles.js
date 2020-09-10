@@ -13,6 +13,7 @@ const GlobalStyles = createGlobalStyle`
 
   a {
     color: black;
+    text-decoration: none;
   }
 `;
 

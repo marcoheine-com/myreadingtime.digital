@@ -4,8 +4,7 @@ export const Section = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 60px;
-  text-align: center;
+  margin-bottom: 100px;
 `;
 
 export const Headline = styled.h3`
@@ -13,40 +12,62 @@ export const Headline = styled.h3`
 `;
 
 export const FeatureList = styled.ul`
-  display: grid;
-  grid-template-columns: 300px;
-  grid-gap: 40px;
   margin: 0;
   padding: 0;
 
   @media (min-width: 680px) {
+    display: grid;
     grid-template-columns: repeat(2, 300px);
+    grid-template-rows: 300px 300px;
+    grid-gap: 10px;
   }
 
   @media (min-width: 800px) {
     grid-template-columns: repeat(2, 350px);
+    grid-template-rows: 260px 260px;
   }
 
   @media (min-width: 980px) {
-    grid-template-columns: repeat(2, 400px);
+    grid-template-columns: repeat(2, 460px);
   }
 
-  @media (min-width: 1200px) {
-    grid-template-columns: repeat(4, 250px);
-  }
-
-  @media (min-width: 1370px) {
-    grid-template-columns: repeat(4, 300px);
+  @media (min-width: 1400px) {
+    grid-template-columns: repeat(4, 340px);
+    grid-template-rows: 260px;
   }
 `;
 
 export const Listitem = styled.li`
-  align-items: center;
   display: flex;
   flex-direction: column;
-  text-align: center;
+  justify-content: center;
+  padding: 30px;
+
+  span {
+    display: block;
+    transition: transform 0.3s;
+  }
+
+  &:hover {
+    background-color: #fdf4f4;
+
+    span {
+      transform: rotate(-5deg) translateY(-5px);
+    }
+  }
+`;
+
+export const FeatureHeadline = styled.h3`
+  margin: 0;
+  display: flex;
+  align-items: center;
+`;
+
+export const Paragraph = styled.p`
+  line-height: 1.5;
 `;
 
 export const Icon = styled.span`
-  font-size: 40px;
+  padding-right: 14px;
+  font-size: 30px;
 `;

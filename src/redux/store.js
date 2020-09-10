@@ -3,18 +3,17 @@ import { loadState, saveState } from '../utils/localStorage';
 
 export const wantToReadSlice = createSlice({
   name: 'wantToRead',
-  initialState: {
-    items: [],
-  },
+  initialState: [],
   reducers: {
     addToWantToRead: (state, action) => {
       const { id, authors, smallThumbnail, title } = action.payload;
-      if (state.items.find((item) => item.id === id)) return state;
-      state.items.push({ id, authors, smallThumbnail, title });
+      if (state.find((item) => item.id === id)) return state;
+      state.push({ id, authors, smallThumbnail, title });
     },
     removeFromWantToRead: (state, action) => {
-      const { id } = action.payload;
-      state.items.splice(state.items.indexOf(id), 1);
+      const id = action.payload;
+
+      return state.filter((item) => item.id !== id);
     },
   },
 });
@@ -26,18 +25,16 @@ export const {
 
 export const didReadSlice = createSlice({
   name: 'didRead',
-  initialState: {
-    items: [],
-  },
+  initialState: [],
   reducers: {
     addToDidRead: (state, action) => {
       const { id, authors, smallThumbnail, title } = action.payload;
-      if (state.items.find((item) => item.id === id)) return state;
-      state.items.push({ id, authors, smallThumbnail, title });
+      if (state.find((item) => item.id === id)) return state;
+      state.push({ id, authors, smallThumbnail, title });
     },
     removeFromDidRead: (state, action) => {
-      const { id } = action.payload;
-      state.items.splice(state.items.indexOf(id), 1);
+      const id = action.payload;
+      return state.filter((item) => item.id !== id);
     },
   },
 });

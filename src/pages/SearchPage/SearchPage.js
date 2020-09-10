@@ -4,6 +4,7 @@ import useGoogleBooksAPI from '../../hooks/useGoogleBooksApi';
 
 import Results from '../../components/Results';
 import Features from '../../components/Features';
+import Button from '../../components/Button';
 import { API_BASE_URL, START_INDEX } from '../../constants/api';
 
 import * as ui from './ui';
@@ -39,32 +40,31 @@ const App = () => {
   return (
     <ui.Main>
       <ui.SearchContainer>
-        <p>Search for a book:</p>
-        <form onSubmit={handleSubmit}>
-          <input
+        <ui.Headline>Search for a book:</ui.Headline>
+        <ui.Form onSubmit={handleSubmit}>
+          <ui.Searchbar
             type='text'
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder='Harry Potter'
           />
-          <button type='submit' disabled={query === ''}>
+          <Button type='submit' disabled={query === ''}>
             Search
-          </button>
-        </form>
+          </Button>
+        </ui.Form>
       </ui.SearchContainer>
 
       {isError && <p>Oh oh! Something went wrong. Please try again!</p>}
 
       {isLoading ? (
-        <p>Loading...</p>
+        <ui.Loading>Loading...</ui.Loading>
       ) : (
         data && (
           <>
             <Results data={data} searchQuery={searchQuery} />
-
-            <button onClick={handleOnClick} disabled={query === ''}>
+            <Button onClick={handleOnClick} disabled={query === ''}>
               Load more books
-            </button>
+            </Button>
           </>
         )
       )}

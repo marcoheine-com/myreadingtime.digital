@@ -10,31 +10,63 @@ const Features = () => {
 
       <ui.FeatureList>
         <ui.Listitem>
-          <ui.Icon>🕵🏼‍♀️</ui.Icon>
-          <h3>Search for books</h3>
-          <p>
+          <ui.FeatureHeadline>
+            <ui.Icon>
+              {' '}
+              <span role='img' aria-label='a detective'>
+                🕵🏼‍♀️
+              </span>
+            </ui.Icon>
+            Search for books
+          </ui.FeatureHeadline>
+          <ui.Paragraph>
             Search for all the information about the books you love and find out
             where to get them
-          </p>
+          </ui.Paragraph>
         </ui.Listitem>
 
         <ui.Listitem>
-          <ui.Icon>📝</ui.Icon>
-          <h3>Want to read list</h3>
-          <p>Make a list of books, you would like to read this year</p>
+          <ui.FeatureHeadline>
+            <ui.Icon>
+              <span role='img' aria-label='a list'>
+                📝
+              </span>
+            </ui.Icon>
+            Want to read list
+          </ui.FeatureHeadline>
+          <ui.Paragraph>
+            Make a list of books, you would like to read this year
+          </ui.Paragraph>
         </ui.Listitem>
 
         <ui.Listitem>
-          <ui.Icon>📚</ui.Icon>
-          <h3>Books you red</h3>
-          <p>Keep track of all the great books you already red</p>
+          <ui.FeatureHeadline>
+            <ui.Icon>
+              {' '}
+              <span role='img' aria-label='stack of books'>
+                📚
+              </span>
+            </ui.Icon>
+            Books you read
+          </ui.FeatureHeadline>
+          <ui.Paragraph>
+            Keep track of all the great books you already red
+          </ui.Paragraph>
         </ui.Listitem>
 
         <ui.Listitem>
-          <ui.Icon>🏆</ui.Icon>
-          <h3>Reading Challenge</h3>
-          Set up a reading challenge: We all would like to read more, why not
-          add a little gamification to it?
+          <ui.FeatureHeadline>
+            <ui.Icon>
+              <span role='img' aria-label='a trophy'>
+                🏆
+              </span>
+            </ui.Icon>
+            Reading Challenge
+          </ui.FeatureHeadline>
+          <ui.Paragraph>
+            Set up a reading challenge: We all would like to read more, why not
+            add a little gamification to it?
+          </ui.Paragraph>
         </ui.Listitem>
       </ui.FeatureList>
     </ui.Section>

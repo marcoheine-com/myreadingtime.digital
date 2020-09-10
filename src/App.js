@@ -8,6 +8,7 @@ import GlobalStyles from './globalStyles';
 import SearchPage from './pages/SearchPage';
 import ItemPage from './pages/ItemPage';
 import WantToReadPage from './pages/WantToReadPage';
+import Reading from './pages/Reading';
 import DidReadPage from './pages/DidReadPage';
 import Navigation from './components/Navigation';
 import Header from './components/Header';
@@ -25,7 +26,10 @@ const App = () => (
         <Route path='/want-to-read'>
           <WantToReadPage />
         </Route>
-        <Route path='/books-I-red'>
+        <Route path='/reading'>
+          <Reading />
+        </Route>
+        <Route path='/books-I-read'>
           <DidReadPage />
         </Route>
         <Route path='/book/:id'>
