@@ -62,9 +62,12 @@ const App = () => {
         data && (
           <>
             <Results data={data} searchQuery={searchQuery} />
-            <Button onClick={handleOnClick} disabled={query === ''}>
-              Load more books
-            </Button>
+
+            <ui.Slot>
+              <Button onClick={handleOnClick} disabled={query === ''}>
+                Load more books
+              </Button>
+            </ui.Slot>
           </>
         )
       )}

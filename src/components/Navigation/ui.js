@@ -11,7 +11,12 @@ export const Navigation = styled.nav`
 `;
 
 export const List = styled.ul`
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  @media (min-width: 400px) {
+    display: flex;
+  }
 `;
 
 export const ListItem = styled.li`

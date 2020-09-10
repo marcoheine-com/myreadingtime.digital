@@ -17,6 +17,18 @@ export const Logo = styled.h1`
   }
   margin-bottom: 60px;
   position: absolute;
-  left: 30px;
+  left: 20px;
   top: 0;
+`;
+
+export const Credits = styled.p`
+  position: absolute;
+  color: white;
+  right: 20px;
+  bottom: 4px;
+  a {
+    color: white;
+  }
+  font-size: 8px;
+  opacity: 0.3;
 `;

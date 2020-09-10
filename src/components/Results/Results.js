@@ -20,22 +20,25 @@ const Results = ({ data, searchQuery }) => {
           return (
             <ui.ItemWrapper key={`item_${id}`}>
               <BookListItem resultData={result} />
-              <Button
-                onClick={() =>
-                  dispatch(
-                    addToWantToRead({ id, authors, smallThumbnail, title })
-                  )
-                }
-              >
-                Add to "Want to read" - list
-              </Button>
+
+              <ui.Slot>
+                <Button
+                  onClick={() =>
+                    dispatch(
+                      addToWantToRead({ id, authors, smallThumbnail, title })
+                    )
+                  }
+                >
+                  Add to "Want to read" - list
+                </Button>
+              </ui.Slot>
 
               <Button
                 onClick={() =>
                   dispatch(addToDidRead({ id, authors, smallThumbnail, title }))
                 }
               >
-                Add to "Did read" - list
+                Add to "Read" - list
               </Button>
             </ui.ItemWrapper>
           );

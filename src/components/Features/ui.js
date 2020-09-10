@@ -4,7 +4,6 @@ export const Section = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 100px;
 `;
 
 export const Headline = styled.h3`

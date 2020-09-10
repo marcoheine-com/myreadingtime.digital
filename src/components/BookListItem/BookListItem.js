@@ -8,12 +8,16 @@ const BookListItem = ({ resultData }) => {
   return (
     <ui.ListItem>
       <Link to={`/book/${id}`}>
-        <h3>{title}</h3>
+        <h4>{title}</h4>
+        <p>by {authors && `${authors}`}</p>
+        {smallThumbnail && (
+          <img
+            alt={`Thumbnail of ${title}`}
+            src={smallThumbnail}
+            loading='lazy'
+          ></img>
+        )}
       </Link>
-      <h4>{authors && `${authors}`}</h4>
-      {smallThumbnail && (
-        <img alt={`Thumbnail of ${title}`} src={smallThumbnail}></img>
-      )}
     </ui.ListItem>
   );
 };

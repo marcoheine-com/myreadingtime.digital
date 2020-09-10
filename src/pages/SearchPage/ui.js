@@ -6,6 +6,7 @@ export const Main = styled.main`
   grid-template-rows: minmax(300px, 1fr);
   justify-items: center;
   padding: 0 20px;
+  margin-bottom: 100px;
 `;
 
 export const Headline = styled.h2`
@@ -16,12 +17,12 @@ export const SearchContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 100px;
   justify-content: center;
   width: 100%;
 `;
 
 export const Loading = styled.p`
+  font-size: 20px;
   margin-bottom: 100px;
 `;
 
@@ -48,4 +49,9 @@ export const Searchbar = styled.input`
     color: black;
     outline: none;
   }
+`;
+
+export const Slot = styled.div`
+  margin-top: 100px;
+  margin-bottom: 100px;
 `;

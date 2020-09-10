@@ -9,6 +9,18 @@ const Header = () => {
       <ui.Logo>
         <Link to='/'>myreadingtime.digital</Link>
       </ui.Logo>
+      <ui.Credits>
+        <span>
+          Photo by{' '}
+          <a href='https://unsplash.com/@christinhumephoto?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'>
+            Christin Hume
+          </a>{' '}
+          on{' '}
+          <a href='https://unsplash.com/@christinhumephoto?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'>
+            Unsplash
+          </a>
+        </span>
+      </ui.Credits>
     </ui.Header>
   );
 };

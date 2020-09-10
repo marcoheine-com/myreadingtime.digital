@@ -8,8 +8,8 @@ import GlobalStyles from './globalStyles';
 import SearchPage from './pages/SearchPage';
 import ItemPage from './pages/ItemPage';
 import WantToReadPage from './pages/WantToReadPage';
-import Reading from './pages/Reading';
-import DidReadPage from './pages/DidReadPage';
+import CurrentlyReading from './pages/CurrentlyReading';
+import ReadPage from './pages/ReadPage';
 import Navigation from './components/Navigation';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -26,11 +26,11 @@ const App = () => (
         <Route path='/want-to-read'>
           <WantToReadPage />
         </Route>
-        <Route path='/reading'>
-          <Reading />
+        <Route path='/currently-reading'>
+          <CurrentlyReading />
         </Route>
-        <Route path='/books-I-read'>
-          <DidReadPage />
+        <Route path='/read'>
+          <ReadPage />
         </Route>
         <Route path='/book/:id'>
           <ItemPage />

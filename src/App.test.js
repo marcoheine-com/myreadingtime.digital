@@ -6,7 +6,7 @@ import { render } from './test/utils';
 import App from './App';
 import WantToReadPage from './pages/WantToReadPage';
 import ItemPage from './pages/ItemPage';
-import DidReadPage from './pages/DidReadPage';
+import ReadPage from './pages/ReadPage';
 
 describe('App', () => {
   test('renders home page', () => {
@@ -44,17 +44,17 @@ describe('App', () => {
     expect(history.location.pathname).toBe('/book/:adfdfa');
   });
 
-  test('renders books-I-red page', () => {
+  test('renders read page', () => {
     const history = createMemoryHistory();
     const { container } = render(
       <Router history={history}>
-        <DidReadPage />
+        <ReadPage />
       </Router>
     );
 
-    history.push('/books-I-red');
+    history.push('/read');
 
-    expect(history.location.pathname).toBe('/books-I-red');
-    expect(container.innerHTML).toMatch('Did read');
+    expect(history.location.pathname).toBe('/read');
+    expect(container.innerHTML).toMatch('Read');
   });
 });

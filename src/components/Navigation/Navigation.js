@@ -23,11 +23,11 @@ const Navigation = () => {
           </Link>
         </ui.ListItem>
         <ui.ListItem>
-          <Link to='/reading'>Reading</Link>{' '}
+          <Link to='/currently-reading'>Currently Reading</Link>{' '}
         </ui.ListItem>
         <ui.ListItem>
-          <Link to='/books-I-read'>
-            Did read {hasDidReadItems && <b>{numOfDidReadItems}</b>}
+          <Link to='/read'>
+            Read {hasDidReadItems && <b>{numOfDidReadItems}</b>}
           </Link>
         </ui.ListItem>
       </ui.List>

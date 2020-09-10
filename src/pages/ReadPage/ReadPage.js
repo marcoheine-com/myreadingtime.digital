@@ -6,16 +6,16 @@ import BookListItem from '../../components/BookListItem';
 import Button from '../../components/Button';
 import * as ui from './ui';
 
-const DidReadPage = () => {
+const ReadPage = () => {
   const results = useSelector((state) => state.didRead);
   const dispatch = useDispatch();
 
   return (
     <ui.Main>
-      <ui.Headline>Did Read</ui.Headline>
+      <ui.Headline>Read</ui.Headline>
       {results.length === 0 ? (
         <ui.NoData>
-          <p>You have no books on your "Did read" - list yet.</p>
+          <p>You have no books on your "Read" - list yet.</p>
           <p>
             Head over to the <Link to='/'>Search Page</Link> and add some!
           </p>
@@ -27,7 +27,7 @@ const DidReadPage = () => {
               <ui.ItemWrapper key={`item_${result.id}`}>
                 <BookListItem resultData={result} />
                 <Button onClick={() => dispatch(removeFromDidRead(result.id))}>
-                  Remove from "Did Read" - list
+                  Remove from "Read" - list
                 </Button>
               </ui.ItemWrapper>
             ))}
@@ -38,4 +38,4 @@ const DidReadPage = () => {
   );
 };
 
-export default DidReadPage;
+export default ReadPage;

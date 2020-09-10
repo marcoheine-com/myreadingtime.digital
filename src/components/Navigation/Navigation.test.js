@@ -7,7 +7,7 @@ describe('Navigation', () => {
     const { getByText } = render(<Navigation />);
 
     expect(getByText('Want to read')).toBeInTheDocument();
-    expect(getByText('Reading')).toBeInTheDocument();
-    expect(getByText('Did read')).toBeInTheDocument();
+    expect(getByText('Currently Reading')).toBeInTheDocument();
+    expect(getByText('Read')).toBeInTheDocument();
   });
 });

@@ -5,6 +5,7 @@ export const Main = styled.main`
   max-width: 600px;
   min-height: 70vh;
   padding: 0 20px;
+  margin-bottom: 100px;
 `;
 
 export const NoData = styled.section`
