@@ -17,6 +17,11 @@ const ItemPage = () => {
     setUrl(`${API_BASE_URL}/${id}`);
   }, [id, setUrl]);
 
+  const getSecureProtocol = (thumbnail) => {
+    const url = thumbnail?.replace(/^http:\/\//i, 'https://');
+    return url;
+  };
+
   const { isLoading, isError, data } = state;
 
   return (
@@ -62,7 +67,9 @@ const ItemPage = () => {
               data.volumeInfo.imageLinks.smallThumbnail && (
                 <img
                   alt={`Thumbnail of ${data.volumeInfo.title}`}
-                  src={data.volumeInfo.imageLinks.smallThumbnail}
+                  src={getSecureProtocol(
+                    data.volumeInfo.imageLinks.smallThumbnail
+                  )}
                   loading='lazy'
                 ></img>
               )}
