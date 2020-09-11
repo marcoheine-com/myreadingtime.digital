@@ -72,6 +72,21 @@ const Features = () => {
           <ui.FeatureHeadline>
             <ui.Icon>
               <span role='img' aria-label='a trophy'>
+                🔕
+              </span>
+            </ui.Icon>
+            No social features
+          </ui.FeatureHeadline>
+          <ui.Paragraph>
+            This place is for you alone and your books. No sharing with friends
+            or following.
+          </ui.Paragraph>
+        </ui.Listitem>
+
+        <ui.Listitem>
+          <ui.FeatureHeadline>
+            <ui.Icon>
+              <span role='img' aria-label='a trophy'>
                 🏆
               </span>
             </ui.Icon>
