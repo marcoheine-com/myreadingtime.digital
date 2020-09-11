@@ -17,8 +17,11 @@ export const Logo = styled.h1`
   }
   margin-bottom: 60px;
   position: absolute;
-  left: 20px;
+  left: 6px;
   top: 0;
+  @media (min-width: 420px) {
+    left: 20px;
+  }
 `;
 
 export const Credits = styled.p`

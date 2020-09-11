@@ -35,7 +35,21 @@ const Features = () => {
             Want to read list
           </ui.FeatureHeadline>
           <ui.Paragraph>
-            Make a list of books, you would like to read this year
+            Make a list of books, you would like to read this year.
+          </ui.Paragraph>
+        </ui.Listitem>
+
+        <ui.Listitem>
+          <ui.FeatureHeadline>
+            <ui.Icon>
+              <span role='img' aria-label='a list'>
+                📖
+              </span>
+            </ui.Icon>
+            Currently Reading
+          </ui.FeatureHeadline>
+          <ui.Paragraph>
+            Track your progress of the book you're currently reading.
           </ui.Paragraph>
         </ui.Listitem>
 
@@ -50,7 +64,7 @@ const Features = () => {
             Books you read
           </ui.FeatureHeadline>
           <ui.Paragraph>
-            Keep track of all the great books you already red
+            Keep track of all the great books you already read.
           </ui.Paragraph>
         </ui.Listitem>
 
@@ -61,7 +75,7 @@ const Features = () => {
                 🏆
               </span>
             </ui.Icon>
-            Reading Challenge
+            Coming soon: Reading Challenge
           </ui.FeatureHeadline>
           <ui.Paragraph>
             Set up a reading challenge: We all would like to read more, why not

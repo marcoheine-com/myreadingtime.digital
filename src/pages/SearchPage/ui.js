@@ -30,6 +30,7 @@ export const Form = styled.form`
   display: flex;
   justify-content: center;
   width: 100%;
+  -webkit-appearance: none;
 `;
 
 export const Searchbar = styled.input`
@@ -43,7 +44,7 @@ export const Searchbar = styled.input`
   max-width: 600px;
   padding: 10px 20px;
   transition: all 0.4s ease;
-  width: 50%;
+  width: 70%;
   &:focus {
     box-shadow: 0px 9px 20px rgba(75, 72, 72, 0.3);
     color: black;

@@ -19,7 +19,8 @@ const Navigation = () => {
         </ui.ListItem>
         <ui.ListItem>
           <Link to='/want-to-read'>
-            Want to read {hasWantToReadItems && <b>{numOfWantToReadItems}</b>}
+            Want to read{' '}
+            {hasWantToReadItems && <ui.Count>{numOfWantToReadItems}</ui.Count>}
           </Link>
         </ui.ListItem>
         <ui.ListItem>
@@ -27,7 +28,7 @@ const Navigation = () => {
         </ui.ListItem>
         <ui.ListItem>
           <Link to='/read'>
-            Read {hasDidReadItems && <b>{numOfDidReadItems}</b>}
+            Read {hasDidReadItems && <ui.Count>{numOfDidReadItems}</ui.Count>}
           </Link>
         </ui.ListItem>
       </ui.List>

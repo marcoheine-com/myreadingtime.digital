@@ -10,7 +10,7 @@ const BookListItem = ({ resultData }) => {
     <ui.ListItem>
       <Link to={`/book/${id}`}>
         <h4>{title}</h4>
-        <p>by {authors && `${authors}`}</p>
+        {authors && <p>by {authors}</p>}
         {smallThumbnail && (
           <img alt={`Thumbnail of ${title}`} src={url} loading='lazy'></img>
         )}
