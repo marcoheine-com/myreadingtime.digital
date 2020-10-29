@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import useGoogleBooksAPI from '../../hooks/useGoogleBooksApi';
+import { useAuth0 } from '@auth0/auth0-react';
 
 import Results from '../../components/Results';
 import Features from '../../components/Features';
@@ -32,14 +33,19 @@ const App = () => {
   };
 
   useEffect(() => {
-    if (location.search === '') return;
+    if (location.search === '' || location.search.startsWith('?code')) {
+      return;
+    }
 
     setUrl(`${API_BASE_URL}${location.search}`);
   }, [location.search, setUrl]);
 
+  const { isAuthenticated } = useAuth0();
+
   return (
     <ui.Main>
       <ui.SearchContainer>
+        {isAuthenticated && <span>Hi and welcome back!</span>}
         <ui.Headline>Search for a book:</ui.Headline>
         <ui.Form onSubmit={handleSubmit}>
           <ui.Searchbar

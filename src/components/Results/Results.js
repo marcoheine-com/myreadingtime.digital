@@ -1,12 +1,14 @@
 import React from 'react';
 import { addToWantToRead, addToDidRead } from '../../redux/store';
 import { useDispatch } from 'react-redux';
+import { useAuth0 } from '@auth0/auth0-react';
 import BookListItem from '../BookListItem';
 import Button from '../Button';
 import * as ui from './ui';
 
 const Results = ({ data, searchQuery }) => {
   const dispatch = useDispatch();
+  const { isAuthenticated, loginWithRedirect } = useAuth0();
 
   return (
     <ui.Results>
@@ -23,10 +25,18 @@ const Results = ({ data, searchQuery }) => {
 
               <ui.Slot>
                 <Button
-                  onClick={() =>
-                    dispatch(
-                      addToWantToRead({ id, authors, smallThumbnail, title })
-                    )
+                  onClick={
+                    isAuthenticated
+                      ? () =>
+                          dispatch(
+                            addToWantToRead({
+                              id,
+                              authors,
+                              smallThumbnail,
+                              title,
+                            })
+                          )
+                      : () => loginWithRedirect()
                   }
                 >
                   Add to "Want to read" - list
@@ -34,8 +44,13 @@ const Results = ({ data, searchQuery }) => {
               </ui.Slot>
 
               <Button
-                onClick={() =>
-                  dispatch(addToDidRead({ id, authors, smallThumbnail, title }))
+                onClick={
+                  isAuthenticated
+                    ? () =>
+                        dispatch(
+                          addToDidRead({ id, authors, smallThumbnail, title })
+                        )
+                    : () => loginWithRedirect()
                 }
               >
                 Add to "Read" - list

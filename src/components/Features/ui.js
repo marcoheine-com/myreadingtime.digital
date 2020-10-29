@@ -31,7 +31,7 @@ export const FeatureList = styled.ul`
   }
 
   @media (min-width: 1400px) {
-    grid-template-columns: repeat(4, 340px);
+    grid-template-columns: repeat(3, 400px);
     grid-template-rows: 260px;
   }
 `;

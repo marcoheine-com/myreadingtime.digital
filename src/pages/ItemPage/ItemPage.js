@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import useGoogleBooksApi from '../../hooks/useGoogleBooksApi';
 import { addToWantToRead, addToDidRead } from '../../redux/store';
 import { useDispatch } from 'react-redux';
+import { useAuth0 } from '@auth0/auth0-react';
 import Button from '../../components/Button';
 import { API_BASE_URL } from '../../constants/api';
 
@@ -12,6 +13,7 @@ const ItemPage = () => {
   const { state, setUrl } = useGoogleBooksApi();
   const { id } = useParams();
   const dispatch = useDispatch();
+  const { isAuthenticated, loginWithRedirect } = useAuth0();
 
   useEffect(() => {
     setUrl(`${API_BASE_URL}/${id}`);
@@ -82,31 +84,44 @@ const ItemPage = () => {
             </p>
             <ui.Slot>
               <Button
-                onClick={() => {
-                  const { authors, title, imageLinks } = data.volumeInfo;
-                  const { smallThumbnail } = imageLinks;
-                  dispatch(
-                    addToWantToRead({ id, authors, title, smallThumbnail })
-                  );
-                }}
+                onClick={
+                  isAuthenticated
+                    ? () => {
+                        const { authors, title, imageLinks } = data.volumeInfo;
+                        const { smallThumbnail } = imageLinks;
+                        dispatch(
+                          addToWantToRead({
+                            id,
+                            authors,
+                            title,
+                            smallThumbnail,
+                          })
+                        );
+                      }
+                    : () => loginWithRedirect()
+                }
               >
                 Add to "Want to read" - list
               </Button>
             </ui.Slot>
 
             <Button
-              onClick={() => {
-                const { authors, title, imageLinks } = data.volumeInfo;
-                const { smallThumbnail } = imageLinks;
-                dispatch(
-                  addToDidRead({
-                    id,
-                    authors,
-                    title,
-                    smallThumbnail,
-                  })
-                );
-              }}
+              onClick={
+                isAuthenticated
+                  ? () => {
+                      const { authors, title, imageLinks } = data.volumeInfo;
+                      const { smallThumbnail } = imageLinks;
+                      dispatch(
+                        addToDidRead({
+                          id,
+                          authors,
+                          title,
+                          smallThumbnail,
+                        })
+                      );
+                    }
+                  : () => loginWithRedirect()
+              }
             >
               Add to "Read" - list
             </Button>
