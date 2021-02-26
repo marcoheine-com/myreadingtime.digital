@@ -26,14 +26,13 @@ const ItemPage = () => {
 
   const { isLoading, isError, data } = state;
 
+  if (isError) return <p>Oh oh! Something went wrong. Please try again!</p>
+
+  if (isLoading) return <ui.Loading>Loading...</ui.Loading>
+
   return (
     <ui.Main>
-      {isError && <p>Oh oh! Something went wrong. Please try again!</p>}
-
-      {isLoading ? (
-        <ui.Loading>Loading...</ui.Loading>
-      ) : (
-        data && (
+        {data && (
           <>
             <h3>{data.volumeInfo.title}</h3>
 
@@ -132,7 +131,6 @@ const ItemPage = () => {
               </Button>
             </ui.Actions>
           </>
-        )
       )}
     </ui.Main>
   );
