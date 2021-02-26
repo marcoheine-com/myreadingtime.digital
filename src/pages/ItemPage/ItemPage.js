@@ -82,7 +82,7 @@ const ItemPage = () => {
                 }}
               />
             </p>
-            <ui.Slot>
+            <ui.Actions>
               <Button
                 onClick={
                   isAuthenticated
@@ -101,30 +101,36 @@ const ItemPage = () => {
                     : () => loginWithRedirect()
                 }
               >
-                Add to "Want to read" - list
+                Want to read
               </Button>
-            </ui.Slot>
 
-            <Button
-              onClick={
-                isAuthenticated
-                  ? () => {
-                      const { authors, title, imageLinks } = data.volumeInfo;
-                      const { smallThumbnail } = imageLinks;
-                      dispatch(
-                        addToDidRead({
-                          id,
-                          authors,
-                          title,
-                          smallThumbnail,
-                        })
-                      );
-                    }
-                  : () => loginWithRedirect()
-              }
-            >
-              Add to "Read" - list
-            </Button>
+              <Button
+                onClick={isAuthenticated ? () => {} : () => loginWithRedirect()}
+              >
+                Currently reading
+              </Button>
+
+              <Button
+                onClick={
+                  isAuthenticated
+                    ? () => {
+                        const { authors, title, imageLinks } = data.volumeInfo;
+                        const { smallThumbnail } = imageLinks;
+                        dispatch(
+                          addToDidRead({
+                            id,
+                            authors,
+                            title,
+                            smallThumbnail,
+                          })
+                        );
+                      }
+                    : () => loginWithRedirect()
+                }
+              >
+                Read
+              </Button>
+            </ui.Actions>
           </>
         )
       )}

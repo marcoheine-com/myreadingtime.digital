@@ -14,16 +14,16 @@ const Results = ({ data, searchQuery }) => {
     <ui.Results>
       <h2>Searchresults {searchQuery && `for: ${searchQuery}`}</h2>
       <ul>
-        {data.items.map(({ id, volumeInfo }) => {
+        {data.items.map(({ id, volumeInfo, searchInfo }) => {
           const { authors, title, imageLinks = '' } = volumeInfo;
           const { smallThumbnail } = imageLinks;
-          const result = { ...volumeInfo, ...imageLinks, id };
+          const result = { ...volumeInfo, ...imageLinks, id, ...searchInfo };
 
           return (
             <ui.ItemWrapper key={`item_${id}`}>
               <BookListItem resultData={result} />
 
-              <ui.Slot>
+              <ui.Actions>
                 <Button
                   onClick={
                     isAuthenticated
@@ -39,22 +39,30 @@ const Results = ({ data, searchQuery }) => {
                       : () => loginWithRedirect()
                   }
                 >
-                  Add to "Want to read" - list
+                  Want to read
                 </Button>
-              </ui.Slot>
 
-              <Button
-                onClick={
-                  isAuthenticated
-                    ? () =>
-                        dispatch(
-                          addToDidRead({ id, authors, smallThumbnail, title })
-                        )
-                    : () => loginWithRedirect()
-                }
-              >
-                Add to "Read" - list
-              </Button>
+                <Button
+                  onClick={
+                    isAuthenticated ? () => {} : () => loginWithRedirect()
+                  }
+                >
+                  Currently reading
+                </Button>
+
+                <Button
+                  onClick={
+                    isAuthenticated
+                      ? () =>
+                          dispatch(
+                            addToDidRead({ id, authors, smallThumbnail, title })
+                          )
+                      : () => loginWithRedirect()
+                  }
+                >
+                  Read
+                </Button>
+              </ui.Actions>
             </ui.ItemWrapper>
           );
         })}

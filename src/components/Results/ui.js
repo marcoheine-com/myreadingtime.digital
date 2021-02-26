@@ -13,6 +13,7 @@ export const ItemWrapper = styled.li`
   }
 `;
 
-export const Slot = styled.div`
-  margin-bottom: 10px;
+export const Actions = styled.div`
+  display: flex;
+  gap: 8px;
 `;

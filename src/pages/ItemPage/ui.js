@@ -16,3 +16,8 @@ export const Slot = styled.div`
   display: inline-block;
   margin-right: 10px;
 `;
+
+export const Actions = styled.div`
+  display: flex;
+  gap: 8px;
+`;
