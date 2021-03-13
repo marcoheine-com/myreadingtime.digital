@@ -1,36 +1,36 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import * as ui from './ui';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import * as ui from './ui'
 
 const BookListItem = ({ resultData }) => {
   const {
-    id,
+    bookId,
     authors,
-    smallThumbnail,
+    thumbnail,
     title,
     publishedDate,
     textSnippet,
-  } = resultData;
+  } = resultData
 
-  const url = smallThumbnail?.replace(/^http:\/\//i, 'https://');
+  const url = thumbnail?.replace(/^http:\/\//i, 'https://')
 
   const formatDate = (date) => {
-    const newDate = new Date(date);
+    const newDate = new Date(date)
 
     return newDate.toLocaleDateString('en', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
-    });
-  };
+    })
+  }
 
-  const DATE = publishedDate && formatDate(publishedDate);
+  const DATE = publishedDate && formatDate(publishedDate)
 
   return (
-    <Link to={`/book/${id}`}>
+    <Link to={`/book/${bookId}`}>
       <ui.ListItem>
-        {smallThumbnail && (
-          <img alt={`Thumbnail of ${title}`} src={url} loading='lazy'></img>
+        {thumbnail && (
+          <img alt={`Thumbnail of ${title}`} src={url} loading="lazy"></img>
         )}
         <ui.Content>
           <h4>{title}</h4>
@@ -42,7 +42,7 @@ const BookListItem = ({ resultData }) => {
         </ui.Content>
       </ui.ListItem>
     </Link>
-  );
-};
+  )
+}
 
-export default BookListItem;
+export default BookListItem

@@ -1,26 +1,38 @@
-import React from 'react';
-import { addToWantToRead, addToDidRead } from '../../redux/store';
-import { useDispatch } from 'react-redux';
-import { useAuth0 } from '@auth0/auth0-react';
-import BookListItem from '../BookListItem';
-import Button from '../Button';
-import * as ui from './ui';
+import React from 'react'
+import { addToDidRead } from '../../redux/store'
+import { useDispatch } from 'react-redux'
+import { useAuth0 } from '@auth0/auth0-react'
+import BookListItem from '../BookListItem'
+import Button from '../Button'
+import * as ui from './ui'
+import useGetAccessToken from '../../hooks/useGetAccessToken'
+import { addToWantToRead } from '../../api'
 
 const Results = ({ data, searchQuery }) => {
-  const dispatch = useDispatch();
-  const { isAuthenticated, loginWithRedirect } = useAuth0();
+  const dispatch = useDispatch()
+  const { user, isAuthenticated, loginWithRedirect } = useAuth0()
+  const accessToken = useGetAccessToken()
+
+  const handleAddToWantToRead = (id, authors, smallThumbnail, title) => {
+    addToWantToRead(id, authors, smallThumbnail, title, user.sub, accessToken)
+  }
 
   return (
     <ui.Results>
       <h2>Searchresults {searchQuery && `for: ${searchQuery}`}</h2>
       <ul>
-        {data.items.map(({ id, volumeInfo, searchInfo }) => {
-          const { authors, title, imageLinks = '' } = volumeInfo;
-          const { smallThumbnail } = imageLinks;
-          const result = { ...volumeInfo, ...imageLinks, id, ...searchInfo };
+        {data.items.map(({ id: bookId, volumeInfo, searchInfo }) => {
+          const { authors, title, imageLinks = '' } = volumeInfo
+          const { smallThumbnail: thumbnail } = imageLinks
+          const result = {
+            ...volumeInfo,
+            ...imageLinks,
+            bookId,
+            ...searchInfo,
+          }
 
           return (
-            <ui.ItemWrapper key={`item_${id}`}>
+            <ui.ItemWrapper key={`item_${bookId}`}>
               <BookListItem resultData={result} />
 
               <ui.Actions>
@@ -28,13 +40,11 @@ const Results = ({ data, searchQuery }) => {
                   onClick={
                     isAuthenticated
                       ? () =>
-                          dispatch(
-                            addToWantToRead({
-                              id,
-                              authors,
-                              smallThumbnail,
-                              title,
-                            })
+                          handleAddToWantToRead(
+                            bookId,
+                            authors,
+                            thumbnail,
+                            title
                           )
                       : () => loginWithRedirect()
                   }
@@ -55,7 +65,12 @@ const Results = ({ data, searchQuery }) => {
                     isAuthenticated
                       ? () =>
                           dispatch(
-                            addToDidRead({ id, authors, smallThumbnail, title })
+                            addToDidRead({
+                              id: bookId,
+                              authors,
+                              thumbnail,
+                              title,
+                            })
                           )
                       : () => loginWithRedirect()
                   }
@@ -64,11 +79,11 @@ const Results = ({ data, searchQuery }) => {
                 </Button>
               </ui.Actions>
             </ui.ItemWrapper>
-          );
+          )
         })}
       </ul>
     </ui.Results>
-  );
-};
+  )
+}
 
-export default Results;
+export default Results
