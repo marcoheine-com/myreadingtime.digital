@@ -1,42 +1,33 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { useAuth0 } from '@auth0/auth0-react';
-import AuthentificationButton from '../AuthentificationButton';
-import * as ui from './ui';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { useAuth0 } from '@auth0/auth0-react'
+import AuthentificationButton from '../AuthentificationButton'
+import * as ui from './ui'
 
 const Navigation = () => {
-  const numOfWantToReadItems = useSelector((state) => state.wantToRead.length);
+  const numOfDidReadItems = useSelector((state) => state.didRead.length)
+  const hasDidReadItems = numOfDidReadItems > 0
 
-  const numOfDidReadItems = useSelector((state) => state.didRead.length);
-
-  const hasWantToReadItems = numOfWantToReadItems > 0;
-  const hasDidReadItems = numOfDidReadItems > 0;
-
-  const { isAuthenticated, loginWithRedirect } = useAuth0();
+  const { isAuthenticated, loginWithRedirect } = useAuth0()
 
   return (
     <ui.Navigation>
       <ui.List>
         <ui.ListItem>
-          <Link to='/'>Search</Link>{' '}
+          <Link to="/">Search</Link>{' '}
         </ui.ListItem>
 
         {isAuthenticated ? (
           <>
             <ui.ListItem>
-              <Link to='/want-to-read'>
-                Want to read{' '}
-                {hasWantToReadItems && (
-                  <ui.Count>{numOfWantToReadItems}</ui.Count>
-                )}
-              </Link>
+              <Link to="/want-to-read">Want to read </Link>
             </ui.ListItem>
             <ui.ListItem>
-              <Link to='/currently-reading'>Currently reading</Link>
+              <Link to="/currently-reading">Currently reading</Link>
             </ui.ListItem>
             <ui.ListItem>
-              <Link to='/read'>
+              <Link to="/read">
                 Read{' '}
                 {hasDidReadItems && <ui.Count>{numOfDidReadItems}</ui.Count>}
               </Link>
@@ -62,7 +53,7 @@ const Navigation = () => {
       </ui.List>
       <AuthentificationButton />
     </ui.Navigation>
-  );
-};
+  )
+}
 
-export default Navigation;
+export default Navigation
