@@ -4,8 +4,8 @@ const mockData = {
       id: '1',
       volumeInfo: {
         title: 'Harry Potter and a lot of magic',
-        authors: ['Marry Klotter']
-      }
+        authors: ['Marry Klotter'],
+      },
     },
     {
       id: '2',
@@ -13,11 +13,11 @@ const mockData = {
         title: 'Pikachu and a lot of Thunder',
         authors: ['Peter Peters'],
         imageLinks: {
-          smallThumbnail: 'pathTo/smallThumbNail'
-        }
-      }
-    }
-  ]
-};
+          thumbnail: 'pathTo/smallThumbNail',
+        },
+      },
+    },
+  ],
+}
 
-export default mockData;
+export default mockData
