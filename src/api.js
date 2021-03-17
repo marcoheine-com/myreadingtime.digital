@@ -28,6 +28,7 @@ export const addToWantToRead = async (
   userId,
   accessToken
 ) => {
+  console.log(accessToken)
   try {
     const response = await fetch(`/api/want-to-read/${bookId}`, {
       method: 'POST',
