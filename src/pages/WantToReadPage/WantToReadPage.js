@@ -14,13 +14,13 @@ const WantToReadPage = () => {
     if (!accessToken) {
       return
     }
+    const onGetWantToRead = async () => {
+      const results = await getWantToRead(accessToken)
+      setResults(results)
+    }
+
     onGetWantToRead()
   }, [accessToken])
-
-  const onGetWantToRead = async () => {
-    const results = await getWantToRead(accessToken)
-    setResults(results)
-  }
 
   const handleDelete = async (bookId) => {
     const results = await deleteFromWantToRead(accessToken, bookId)
@@ -34,7 +34,7 @@ const WantToReadPage = () => {
         <ui.NoData>
           <p>You have no books on your "Want to read" - list yet.</p>
           <p>
-            Head over to the <Link to="/">Search Page</Link> and add some!
+            Head over to the <Link to='/'>Search Page</Link> and add some!
           </p>
         </ui.NoData>
       ) : (

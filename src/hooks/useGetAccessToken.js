@@ -6,24 +6,24 @@ const useGetAccessToken = () => {
   const [accessToken, setAccessToken] = useState()
   const { isAuthenticated, getAccessTokenSilently } = useAuth0()
 
-  const getAccessToken = async () => {
-    try {
-      const accessToken = await getAccessTokenSilently({
-        audience: `https://${audience}`,
-      })
-      setAccessToken(accessToken)
-    } catch (e) {
-      console.error(e)
-    }
-  }
-
   useEffect(() => {
     if (!isAuthenticated) {
       return
     }
 
+    const getAccessToken = async () => {
+      try {
+        const accessToken = await getAccessTokenSilently({
+          audience: `https://${audience}`,
+        })
+        setAccessToken(accessToken)
+      } catch (e) {
+        console.error(e)
+      }
+    }
+
     getAccessToken()
-  }, [])
+  }, [isAuthenticated, getAccessTokenSilently])
 
   return accessToken
 }
