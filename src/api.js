@@ -1,6 +1,8 @@
+import { BASE_URL } from '../src/constants/api'
+
 export const getWantToRead = async (accessToken) => {
   try {
-    const response = await fetch(`/api/want-to-read`, {
+    const response = await fetch(`${BASE_URL}/api/want-to-read`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -28,9 +30,8 @@ export const addToWantToRead = async (
   userId,
   accessToken
 ) => {
-  console.log(accessToken)
   try {
-    const response = await fetch(`/api/want-to-read/${bookId}`, {
+    const response = await fetch(`${BASE_URL}/api/want-to-read/${bookId}`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -59,7 +60,7 @@ export const addToWantToRead = async (
 
 export const deleteFromWantToRead = async (accessToken, bookId) => {
   try {
-    const response = await fetch(`/api/want-to-read/${bookId}`, {
+    const response = await fetch(`${BASE_URL}/api/want-to-read/${bookId}`, {
       method: 'DELETE',
       headers: {
         Accept: 'application/json',
