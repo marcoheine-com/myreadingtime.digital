@@ -1,12 +1,10 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import useGoogleBooksApi from '../../hooks/useGoogleBooksApi'
-import { addToDidRead } from '../../redux/store'
-import { useDispatch } from 'react-redux'
 import { useAuth0 } from '@auth0/auth0-react'
 import Button from '../../components/Button'
 import { API_BASE_URL } from '../../constants/api'
-import { addToWantToRead } from '../../api'
+import { addToWantToRead, addToDidRead } from '../../api'
 import useGetAccessToken from '../../hooks/useGetAccessToken'
 
 import * as ui from './ui'
@@ -14,12 +12,15 @@ import * as ui from './ui'
 const ItemPage = () => {
   const { state, setUrl } = useGoogleBooksApi()
   const { id } = useParams()
-  const dispatch = useDispatch()
   const { user, isAuthenticated, loginWithRedirect } = useAuth0()
   const accessToken = useGetAccessToken()
 
   const handleAddToWantToRead = (bookId, authors, thumbnail, title) => {
     addToWantToRead(bookId, authors, thumbnail, title, user.sub, accessToken)
+  }
+
+  const handleAddToDidRead = (id, authors, smallThumbnail, title) => {
+    addToDidRead(id, authors, smallThumbnail, title, user.sub, accessToken)
   }
 
   useEffect(() => {
@@ -115,14 +116,7 @@ const ItemPage = () => {
                   ? () => {
                       const { authors, title, imageLinks } = data.volumeInfo
                       const { smallThumbnail } = imageLinks
-                      dispatch(
-                        addToDidRead({
-                          id,
-                          authors,
-                          title,
-                          smallThumbnail,
-                        })
-                      )
+                      handleAddToDidRead(id, authors, title, smallThumbnail)
                     }
                   : () => loginWithRedirect()
               }

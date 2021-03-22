@@ -1,20 +1,21 @@
 import React from 'react'
-import { addToDidRead } from '../../redux/store'
-import { useDispatch } from 'react-redux'
 import { useAuth0 } from '@auth0/auth0-react'
 import BookListItem from '../BookListItem'
 import Button from '../Button'
 import * as ui from './ui'
 import useGetAccessToken from '../../hooks/useGetAccessToken'
-import { addToWantToRead } from '../../api'
+import { addToWantToRead, addToDidRead } from '../../api'
 
 const Results = ({ data, searchQuery }) => {
-  const dispatch = useDispatch()
   const { user, isAuthenticated, loginWithRedirect } = useAuth0()
   const accessToken = useGetAccessToken()
 
   const handleAddToWantToRead = (id, authors, smallThumbnail, title) => {
     addToWantToRead(id, authors, smallThumbnail, title, user.sub, accessToken)
+  }
+
+  const handleAddToDidRead = (id, authors, smallThumbnail, title) => {
+    addToDidRead(id, authors, smallThumbnail, title, user.sub, accessToken)
   }
 
   return (
@@ -64,14 +65,7 @@ const Results = ({ data, searchQuery }) => {
                   onClick={
                     isAuthenticated
                       ? () =>
-                          dispatch(
-                            addToDidRead({
-                              id: bookId,
-                              authors,
-                              thumbnail,
-                              title,
-                            })
-                          )
+                          handleAddToDidRead(bookId, authors, thumbnail, title)
                       : () => loginWithRedirect()
                   }
                 >
