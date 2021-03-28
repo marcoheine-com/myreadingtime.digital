@@ -4,7 +4,7 @@ import * as ui from './ui'
 
 const BookListItem = ({ resultData }) => {
   const {
-    bookId,
+    id,
     authors,
     thumbnail,
     title,
@@ -27,10 +27,10 @@ const BookListItem = ({ resultData }) => {
   const DATE = publishedDate && formatDate(publishedDate)
 
   return (
-    <Link to={`/book/${bookId}`}>
+    <Link to={`/book/${id}`}>
       <ui.ListItem>
         {thumbnail && (
-          <img alt={`Thumbnail of ${title}`} src={url} loading="lazy"></img>
+          <img alt={`Thumbnail of ${title}`} src={url} loading='lazy'></img>
         )}
         <ui.Content>
           <h4>{title}</h4>

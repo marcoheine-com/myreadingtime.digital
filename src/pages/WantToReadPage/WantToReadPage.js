@@ -1,36 +1,44 @@
 import * as ui from './ui'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
-import { getWantToRead, deleteFromWantToRead } from '../../api'
+import { useGetWantToRead, useDeleteFromWantToRead } from '../../api/api'
 import BookListItem from '../../components/BookListItem'
 import Button from '../../components/Button'
-import useGetAccessToken from '../../hooks/useGetAccessToken'
+import { useQuery, useMutation, useQueryClient } from 'react-query'
 
 const WantToReadPage = () => {
-  const [results, setResults] = useState()
-  const accessToken = useGetAccessToken()
-
-  useEffect(() => {
-    if (!accessToken) {
-      return
+  const { getWantToRead } = useGetWantToRead()
+  const { deleteFromWantToRead } = useDeleteFromWantToRead()
+  const queryClient = useQueryClient()
+  const { status, error, data } = useQuery('getWantToRead', getWantToRead)
+  const { mutate } = useMutation(
+    'deleteFromDidRead',
+    (wantToReadItem) => deleteFromWantToRead(wantToReadItem),
+    {
+      onSuccess: (data) => queryClient.setQueryData('getWantToRead', data),
     }
-    const onGetWantToRead = async () => {
-      const results = await getWantToRead(accessToken)
-      setResults(results)
-    }
+  )
 
-    onGetWantToRead()
-  }, [accessToken])
+  if (status === 'loading') {
+    return (
+      <ui.Main>
+        <p>Loading...</p>
+      </ui.Main>
+    )
+  }
 
-  const handleDelete = async (bookId) => {
-    const results = await deleteFromWantToRead(accessToken, bookId)
-    setResults(results)
+  if (status === 'error') {
+    return (
+      <ui.Main>
+        <p>Error: {error.message}</p>
+      </ui.Main>
+    )
   }
 
   return (
     <ui.Main>
       <ui.Headline>Want to read</ui.Headline>
-      {results?.length === 0 ? (
+      {data?.length === 0 ? (
         <ui.NoData>
           <p>You have no books on your "Want to read" - list yet.</p>
           <p>
@@ -40,10 +48,10 @@ const WantToReadPage = () => {
       ) : (
         <>
           <ul>
-            {results?.map((result) => (
-              <ui.ItemWrapper key={`item_${result.bookId}`}>
+            {data?.map((result) => (
+              <ui.ItemWrapper key={`item_${result.id}`}>
                 <BookListItem resultData={result} />
-                <Button onClick={() => handleDelete(result.bookId)}>
+                <Button onClick={() => mutate(result.id)}>
                   Remove from "Want to Read" - list
                 </Button>
               </ui.ItemWrapper>

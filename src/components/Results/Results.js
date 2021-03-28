@@ -3,37 +3,39 @@ import { useAuth0 } from '@auth0/auth0-react'
 import BookListItem from '../BookListItem'
 import Button from '../Button'
 import * as ui from './ui'
-import useGetAccessToken from '../../hooks/useGetAccessToken'
-import { addToWantToRead, addToDidRead } from '../../api'
+import { useAddToWantToRead, useAddToDidRead } from '../../api/api'
+import { useMutation } from 'react-query'
 
 const Results = ({ data, searchQuery }) => {
-  const { user, isAuthenticated, loginWithRedirect } = useAuth0()
-  const accessToken = useGetAccessToken()
+  const { isAuthenticated, loginWithRedirect } = useAuth0()
+  const { addToWantToRead } = useAddToWantToRead()
+  const { addToDidRead } = useAddToDidRead()
+  const { mutate: mutateWantToRead } = useMutation(
+    ['addToWantToRead'],
+    (wantToReadItem) => addToWantToRead(wantToReadItem)
+  )
 
-  const handleAddToWantToRead = (id, authors, smallThumbnail, title) => {
-    addToWantToRead(id, authors, smallThumbnail, title, user.sub, accessToken)
-  }
-
-  const handleAddToDidRead = (id, authors, smallThumbnail, title) => {
-    addToDidRead(id, authors, smallThumbnail, title, user.sub, accessToken)
-  }
+  const { mutate: mutateDidRead } = useMutation(
+    ['addToDidRead'],
+    (wantToReadItem) => addToDidRead(wantToReadItem)
+  )
 
   return (
     <ui.Results>
       <h2>Searchresults {searchQuery && `for: ${searchQuery}`}</h2>
       <ul>
-        {data.items.map(({ id: bookId, volumeInfo, searchInfo }) => {
+        {data?.items?.map(({ id, volumeInfo, searchInfo }) => {
           const { authors, title, imageLinks = '' } = volumeInfo
           const { smallThumbnail: thumbnail } = imageLinks
           const result = {
             ...volumeInfo,
             ...imageLinks,
-            bookId,
+            id,
             ...searchInfo,
           }
 
           return (
-            <ui.ItemWrapper key={`item_${bookId}`}>
+            <ui.ItemWrapper key={`item_${id}`}>
               <BookListItem resultData={result} />
 
               <ui.Actions>
@@ -41,12 +43,12 @@ const Results = ({ data, searchQuery }) => {
                   onClick={
                     isAuthenticated
                       ? () =>
-                          handleAddToWantToRead(
-                            bookId,
+                          mutateWantToRead({
+                            id,
                             authors,
                             thumbnail,
-                            title
-                          )
+                            title,
+                          })
                       : () => loginWithRedirect()
                   }
                 >
@@ -65,7 +67,12 @@ const Results = ({ data, searchQuery }) => {
                   onClick={
                     isAuthenticated
                       ? () =>
-                          handleAddToDidRead(bookId, authors, thumbnail, title)
+                          mutateDidRead({
+                            id,
+                            authors,
+                            thumbnail,
+                            title,
+                          })
                       : () => loginWithRedirect()
                   }
                 >

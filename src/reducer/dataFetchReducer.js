@@ -1,4 +1,4 @@
-import { IS_LOADING, IS_SUCCESS, IS_ERROR } from '../constants/searchTypes';
+import { IS_LOADING, IS_SUCCESS, IS_ERROR } from '../constants/searchTypes'
 
 const dataFetchReducer = (state, action) => {
   switch (action.type) {
@@ -6,24 +6,27 @@ const dataFetchReducer = (state, action) => {
       return {
         ...state,
         isLoading: true,
-        isError: false
-      };
+        isError: false,
+        isSuccess: false,
+      }
     case IS_SUCCESS:
       return {
         ...state,
         isLoading: false,
         isError: false,
-        data: action.payload
-      };
+        isSuccess: true,
+        data: action.payload,
+      }
     case IS_ERROR:
       return {
         ...state,
         isLoading: false,
-        isError: true
-      };
+        isError: true,
+        isSuccess: false,
+      }
     default:
-      throw new Error();
+      throw new Error()
   }
-};
+}
 
-export default dataFetchReducer;
+export default dataFetchReducer

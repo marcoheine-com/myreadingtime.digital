@@ -2,26 +2,28 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import useGoogleBooksApi from '../../hooks/useGoogleBooksApi'
 import { useAuth0 } from '@auth0/auth0-react'
+import { useMutation } from 'react-query'
 import Button from '../../components/Button'
 import { API_BASE_URL } from '../../constants/api'
-import { addToWantToRead, addToDidRead } from '../../api'
-import useGetAccessToken from '../../hooks/useGetAccessToken'
+import { useAddToWantToRead, useAddToDidRead } from '../../api/api'
 
 import * as ui from './ui'
 
 const ItemPage = () => {
   const { state, setUrl } = useGoogleBooksApi()
   const { id } = useParams()
-  const { user, isAuthenticated, loginWithRedirect } = useAuth0()
-  const accessToken = useGetAccessToken()
+  const { isAuthenticated, loginWithRedirect } = useAuth0()
+  const { addToWantToRead } = useAddToWantToRead()
+  const { addToDidRead } = useAddToDidRead()
+  const { mutate: mutateWantToRead } = useMutation(
+    'addToWantToRead',
+    (wantToReadItem) => addToWantToRead(wantToReadItem)
+  )
 
-  const handleAddToWantToRead = (bookId, authors, thumbnail, title) => {
-    addToWantToRead(bookId, authors, thumbnail, title, user.sub, accessToken)
-  }
-
-  const handleAddToDidRead = (id, authors, smallThumbnail, title) => {
-    addToDidRead(id, authors, smallThumbnail, title, user.sub, accessToken)
-  }
+  const { mutate: mutateDidRead } = useMutation(
+    'addToDidRead',
+    (wantToReadItem) => addToDidRead(wantToReadItem)
+  )
 
   useEffect(() => {
     setUrl(`${API_BASE_URL}/${id}`)
@@ -32,60 +34,68 @@ const ItemPage = () => {
     return url
   }
 
-  const { isLoading, isError, data } = state
-
-  if (isError) return <p>Oh oh! Something went wrong. Please try again!</p>
+  const { isLoading, isError, isSuccess, data } = state
 
   if (isLoading) return <ui.Loading>Loading...</ui.Loading>
+
+  if (isError || !isSuccess)
+    return <p>Oh oh! Something went wrong. Please try again!</p>
+
+  const { volumeInfo = {}, saleInfo = {} } = data
+  const {
+    title,
+    authors,
+    publishedDate,
+    publisher,
+    pageCount,
+    averageRating,
+    ratingsCount,
+    categories,
+    imageLinks = {},
+    description,
+  } = volumeInfo
+  const { smallThumbnail: thumbnail } = imageLinks
+
+  const { listPrice } = saleInfo
 
   return (
     <ui.Main>
       {data && (
         <>
-          <h3>{data.volumeInfo.title}</h3>
+          <h3>{title}</h3>
 
-          {data.volumeInfo.authors &&
-            data.volumeInfo.authors.map((author) => (
-              <h4 key={author}>by {author}</h4>
-            ))}
-          <p>{data.volumeInfo.publishedDate}</p>
-          <p>{data.volumeInfo.publisher}</p>
+          {authors &&
+            authors.map((author) => <h4 key={author}>by {author}</h4>)}
+          <p>{publishedDate}</p>
+          <p>{publisher}</p>
 
-          <p>{data.volumeInfo.pageCount} pages</p>
+          <p>{pageCount} pages</p>
 
-          {data.volumeInfo.averageRating && (
-            <p>
-              rating:{' '}
-              {`${data.volumeInfo.averageRating}/5 (${data.volumeInfo.ratingsCount})`}
-            </p>
+          {averageRating && (
+            <p>rating: {`${averageRating}/5 (${ratingsCount})`}</p>
           )}
 
-          {data.saleInfo.listPrice && (
-            <p>price: {`${data.saleInfo.listPrice.amount}€`}</p>
-          )}
+          {listPrice && <p>price: {`${listPrice.amount}€`}</p>}
 
-          {data.volumeInfo.categories && (
+          {categories && (
             <ul>
-              {data.volumeInfo.categories.map((category) => (
+              {categories.map((category) => (
                 <li key={category}>{category}</li>
               ))}
             </ul>
           )}
 
-          {data.volumeInfo.imageLinks &&
-            data.volumeInfo.imageLinks.smallThumbnail && (
-              <img
-                alt={`Thumbnail of ${data.volumeInfo.title}`}
-                src={getSecureProtocol(
-                  data.volumeInfo.imageLinks.smallThumbnail
-                )}
-                loading='lazy'
-              ></img>
-            )}
+          {thumbnail && (
+            <img
+              alt={`Thumbnail of ${title}`}
+              src={getSecureProtocol(thumbnail)}
+              loading='lazy'
+            ></img>
+          )}
           <p>
             <i
               dangerouslySetInnerHTML={{
-                __html: data.volumeInfo.description,
+                __html: description,
               }}
             />
           </p>
@@ -94,9 +104,12 @@ const ItemPage = () => {
               onClick={
                 isAuthenticated
                   ? () => {
-                      const { authors, title, imageLinks } = data.volumeInfo
-                      const { smallThumbnail } = imageLinks
-                      handleAddToWantToRead(id, authors, smallThumbnail, title)
+                      mutateWantToRead({
+                        id,
+                        authors,
+                        thumbnail,
+                        title,
+                      })
                     }
                   : () => loginWithRedirect()
               }
@@ -114,9 +127,12 @@ const ItemPage = () => {
               onClick={
                 isAuthenticated
                   ? () => {
-                      const { authors, title, imageLinks } = data.volumeInfo
-                      const { smallThumbnail } = imageLinks
-                      handleAddToDidRead(id, authors, title, smallThumbnail)
+                      mutateDidRead({
+                        id,
+                        authors,
+                        title,
+                        thumbnail,
+                      })
                     }
                   : () => loginWithRedirect()
               }
