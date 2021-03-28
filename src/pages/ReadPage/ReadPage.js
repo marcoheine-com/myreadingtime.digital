@@ -48,14 +48,15 @@ const ReadPage = () => {
       ) : (
         <>
           <ul>
-            {data?.map((result) => (
-              <ui.ItemWrapper key={`item_${result.id}`}>
-                <BookListItem resultData={result} />
-                <Button onClick={() => mutate(result.id)}>
-                  Remove from "Read" - list
-                </Button>
-              </ui.ItemWrapper>
-            ))}
+            {data &&
+              data.map((result) => (
+                <ui.ItemWrapper key={`item_${result.id}`}>
+                  <BookListItem resultData={result} />
+                  <Button onClick={() => mutate(result.id)}>
+                    Remove from "Read" - list
+                  </Button>
+                </ui.ItemWrapper>
+              ))}
           </ul>
         </>
       )}
