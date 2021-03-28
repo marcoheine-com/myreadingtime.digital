@@ -49,14 +49,15 @@ const WantToReadPage = () => {
         <>
           <ul>
             Want to read data
-            {/* {data?.map((result) => (
-              <ui.ItemWrapper key={`item_${result.id}`}>
-                <BookListItem resultData={result} />
-                <Button onClick={() => mutate(result.id)}>
-                  Remove from "Want to Read" - list
-                </Button>
-              </ui.ItemWrapper>
-            ))} */}
+            {data.length === 5 &&
+              data?.map((result) => (
+                <ui.ItemWrapper key={`item_${result.id}`}>
+                  <BookListItem resultData={result} />
+                  <Button onClick={() => mutate(result.id)}>
+                    Remove from "Want to Read" - list
+                  </Button>
+                </ui.ItemWrapper>
+              ))}
           </ul>
         </>
       )}
