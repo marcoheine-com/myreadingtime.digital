@@ -49,8 +49,8 @@ const WantToReadPage = () => {
         <>
           <ul>
             Want to read data
-            {data.length === 5 &&
-              data?.map((result) => (
+            {data?.length !== 0 &&
+              data.map((result) => (
                 <ui.ItemWrapper key={`item_${result.id}`}>
                   <BookListItem resultData={result} />
                   <Button onClick={() => mutate(result.id)}>
