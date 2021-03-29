@@ -19,6 +19,8 @@ const WantToReadPage = () => {
     }
   )
 
+  console.log(data, typeof data)
+
   if (status === 'loading') {
     return (
       <ui.Main>
