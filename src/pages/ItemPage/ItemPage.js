@@ -36,7 +36,12 @@ const ItemPage = () => {
 
   const { isLoading, isError, isSuccess, data } = state
 
-  if (isLoading) return <ui.Loading>Loading...</ui.Loading>
+  if (isLoading)
+    return (
+      <ui.Main>
+        <ui.Loading>Loading...</ui.Loading>
+      </ui.Main>
+    )
 
   if (isError || !isSuccess)
     return <p>Oh oh! Something went wrong. Please try again!</p>

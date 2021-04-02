@@ -5,7 +5,7 @@ const audience = process.env.REACT_APP_WANT_TO_READ
 
 // want-to-read
 export const useGetWantToRead = () => {
-  const { getAccessTokenSilently } = useAuth0()
+  const { getAccessTokenSilently, loginWithRedirect } = useAuth0()
 
   const getWantToRead = async () => {
     try {
@@ -24,8 +24,14 @@ export const useGetWantToRead = () => {
 
       const data = await response.json()
       return data
-    } catch (error) {
-      return error
+    } catch (e) {
+      if (e.error === 'login_required') {
+        loginWithRedirect()
+      }
+      if (e.error === 'consent_required') {
+        loginWithRedirect()
+      }
+      return e
     }
   }
 
