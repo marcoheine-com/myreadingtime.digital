@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Auth0ProviderWithHistory from './auth/auth0-provider-with-history'
 import ProtectedRoute from './auth/protected-route'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { createBrowserHistory } from 'history'
 
 import GlobalStyles from './globalStyles'
 
@@ -15,12 +16,14 @@ import Navigation from './components/Navigation'
 import Header from './components/Header'
 import Footer from './components/Footer'
 
+export const history = createBrowserHistory()
+
 const queryClient = new QueryClient()
 
 const App = () => {
   return (
     <>
-      <Router>
+      <Router history={history}>
         <Auth0ProviderWithHistory>
           <QueryClientProvider client={queryClient}>
             <Header />
