@@ -5,6 +5,7 @@ import { Auth0Provider } from '@auth0/auth0-react'
 const Auth0ProviderWithHistory = ({ children }) => {
   const domain = process.env.REACT_APP_AUTH0_DOMAIN
   const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID
+  const audience = process.env.REACT_APP_WANT_TO_READ
 
   const history = useHistory()
 
@@ -19,6 +20,7 @@ const Auth0ProviderWithHistory = ({ children }) => {
       redirectUri={window.location.origin}
       onRedirectCallback={onRedirectCallback}
       useRefreshTokens
+      audience={audience}
     >
       {children}
     </Auth0Provider>

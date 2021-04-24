@@ -9,9 +9,7 @@ export const useGetWantToRead = () => {
 
   const getWantToRead = async () => {
     try {
-      const accessToken = await getAccessTokenSilently({
-        audience: `https://${audience}`,
-      })
+      const accessToken = await getAccessTokenSilently()
 
       const response = await fetchGET(
         `${BASE_URL}/api/want-to-read`,
