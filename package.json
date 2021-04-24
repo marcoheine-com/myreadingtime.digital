@@ -1,0 +1,24 @@
+{
+  "name": "myreadingtime.digital",
+  "version": "1.0.0",
+  "description": "## [myreadingtime.digital](myreadingtime.digital) is a place for **you** and your **books**.",
+  "scripts": {
+    "start": "concurrently \"npm run frontend\" \"npm run backend\"",
+    "frontend": "cd frontend && npm install && npm run start",
+    "backend": "cd backend && npm install && npm run start",
+    "build": "cd frontend && npm install && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mkuehb/myreadingtime.digital.git"
+  },
+  "author": "Marco Kühbauch",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mkuehb/myreadingtime.digital/issues"
+  },
+  "homepage": "https://github.com/mkuehb/myreadingtime.digital#readme",
+  "devDependencies": {
+    "concurrently": "^6.0.2"
+  }
+}
