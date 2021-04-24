@@ -38,7 +38,7 @@ export const useAddToWantToRead = () => {
 
     try {
       const accessToken = await getAccessTokenSilently({
-        audience: `https://${audience}`,
+        audience,
       })
 
       const response = await fetchPOST(
@@ -70,7 +70,7 @@ export const useDeleteFromWantToRead = () => {
   const deleteFromWantToRead = async (id) => {
     try {
       const accessToken = await getAccessTokenSilently({
-        audience: `https://${audience}`,
+        audience,
       })
       const response = await fetchDELETE(
         `${BASE_URL}/api/want-to-read/${id}`,
@@ -100,7 +100,7 @@ export const useGetDidRead = () => {
   const getDidRead = async () => {
     try {
       const accessToken = await getAccessTokenSilently({
-        audience: `https://${audience}`,
+        audience,
       })
 
       const response = await fetchGET(`${BASE_URL}/api/did-read`, accessToken)
@@ -127,7 +127,7 @@ export const useAddToDidRead = () => {
 
     try {
       const accessToken = await getAccessTokenSilently({
-        audience: `https://${audience}`,
+        audience,
       })
 
       const response = await fetchPOST(
@@ -159,7 +159,7 @@ export const useDeleteFromDidRead = () => {
   const deleteFromDidRead = async (id) => {
     try {
       const accessToken = await getAccessTokenSilently({
-        audience: `https://${audience}`,
+        audience,
       })
       const response = await fetchDELETE(
         `${BASE_URL}/api/did-read/${id}`,
