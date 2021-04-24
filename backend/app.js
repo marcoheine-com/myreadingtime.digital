@@ -1,7 +1,7 @@
 const fastify = require('fastify')({
   logger: true,
 })
-
+const path = require('path')
 const fastifyEnv = require('fastify-env')
 const { getOrigin } = require('./src/utils/getOrigin')
 const origin = getOrigin()
@@ -34,6 +34,10 @@ fastify.register(fastifyEnv, options).ready((err) => {
 })
 
 fastify.register(require('./src/db-connector'))
+fastify.register(require('fastify-static'), {
+  root: path.join(__dirname, '../frontend', 'build'),
+})
+
 fastify.register(require('./src/services/wantToRead'))
 fastify.register(require('./src/services/didRead'))
 
