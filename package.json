@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "## [myreadingtime.digital](myreadingtime.digital) is a place for **you** and your **books**.",
   "scripts": {
-    "start": "concurrently \"npm run frontend\" \"npm run backend\"",
+    "start": "cd backend &&  npm install && npm run start",
+    "dev": "concurrently \"npm run frontend\" \"npm run backend\"",
     "frontend": "cd frontend && npm install && npm run start",
     "backend": "cd backend && npm install && npm run start",
     "build": "cd frontend && npm install && npm run build"
