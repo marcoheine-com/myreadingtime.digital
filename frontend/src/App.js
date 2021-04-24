@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { Router, Switch, Route } from 'react-router-dom'
 import Auth0ProviderWithHistory from './auth/auth0-provider-with-history'
 import ProtectedRoute from './auth/protected-route'
 import { QueryClient, QueryClientProvider } from 'react-query'
