@@ -25,12 +25,6 @@ export const useGetWantToRead = () => {
       const data = await response.json()
       return data
     } catch (e) {
-      if (e.error === 'login_required') {
-        loginWithRedirect()
-      }
-      if (e.error === 'consent_required') {
-        loginWithRedirect()
-      }
       return e
     }
   }
