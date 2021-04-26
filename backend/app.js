@@ -38,6 +38,10 @@ fastify.register(require('fastify-static'), {
   root: path.join(__dirname, '../frontend', 'build'),
 })
 
+fastify.get('/', function (req, reply) {
+  return reply.sendFile('index.html')
+})
+
 fastify.register(require('./src/services/wantToRead'))
 fastify.register(require('./src/services/didRead'))
 
