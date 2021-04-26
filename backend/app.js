@@ -42,6 +42,10 @@ fastify.get('/', function (req, reply) {
   return reply.sendFile('index.html')
 })
 
+fastify.setNotFoundHandler(function (request, reply) {
+  reply.sendFile('index.html')
+})
+
 fastify.register(require('./src/services/wantToRead'))
 fastify.register(require('./src/services/didRead'))
 
