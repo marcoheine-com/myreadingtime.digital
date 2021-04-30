@@ -32,7 +32,14 @@ const replaceOne = {
     },
   },
   response: {
-    200: {},
+    200: {
+      type: 'array',
+      items: {
+        properties: {
+          id: { type: 'string' },
+        },
+      },
+    },
   },
 }
 

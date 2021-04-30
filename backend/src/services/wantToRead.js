@@ -27,7 +27,7 @@ async function routes(fastify) {
     '/api/want-to-read/:id',
     { schema: schemas.replaceOne },
     async (request) => {
-      return await collection.replaceOne(
+      await collection.replaceOne(
         {
           id: request.params.id,
         },
@@ -39,6 +39,8 @@ async function routes(fastify) {
           upsert: true,
         }
       )
+
+      return await collection.find({ id: request.params.id }).toArray()
     }
   )
 
