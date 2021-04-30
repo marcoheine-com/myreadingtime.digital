@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import { useQuery } from 'react-query'
+import { useAuth0 } from '@auth0/auth0-react'
 import { fetchGoogleBooksVolumes } from '../../api/api'
 import Results from '../../components/Results'
 import Button from '../../components/Button'
@@ -11,6 +12,7 @@ import * as ui from './ui'
 const App = () => {
   const history = useHistory()
   const location = useLocation()
+  const { isAuthenticated } = useAuth0()
 
   const [query, setQuery] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
@@ -50,6 +52,10 @@ const App = () => {
   const handleOnClick = (index) => {
     history.push(`?q=${searchQuery}&${START_INDEX}=${index}`)
     setIndex(index)
+  }
+
+  if (!isAuthenticated) {
+    return <ui.Main>Please login to use the search.</ui.Main>
   }
 
   return (
