@@ -8,6 +8,7 @@ import { createBrowserHistory } from 'history'
 import GlobalStyles from './globalStyles'
 
 import SearchPage from './pages/SearchPage'
+import { LandingPage } from './pages/LandingPage'
 import ItemPage from './pages/ItemPage'
 import WantToReadPage from './pages/WantToReadPage'
 import CurrentlyReading from './pages/CurrentlyReading'
@@ -30,6 +31,9 @@ const App = () => {
             <Navigation />
             <Switch>
               <Route exact path='/'>
+                <LandingPage />
+              </Route>
+              <Route path='/search'>
                 <SearchPage />
               </Route>
               <ProtectedRoute path='/want-to-read' component={WantToReadPage} />

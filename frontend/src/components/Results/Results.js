@@ -10,15 +10,19 @@ const Results = ({ data, searchQuery }) => {
   const { isAuthenticated, loginWithRedirect } = useAuth0()
   const { addToWantToRead } = useAddToWantToRead()
   const { addToDidRead } = useAddToDidRead()
-  const { mutate: mutateWantToRead } = useMutation(
-    ['addToWantToRead'],
-    (wantToReadItem) => addToWantToRead(wantToReadItem)
+  const {
+    mutate: mutateWantToRead,
+    status: wantToReadStatus,
+    data: wantToReadData,
+  } = useMutation(['addToWantToRead'], (wantToReadItem) =>
+    addToWantToRead(wantToReadItem)
   )
 
-  const { mutate: mutateDidRead } = useMutation(
-    ['addToDidRead'],
-    (wantToReadItem) => addToDidRead(wantToReadItem)
-  )
+  const {
+    mutate: mutateDidRead,
+    status: readStatus,
+    data: readData,
+  } = useMutation(['addToDidRead'], (readItem) => addToDidRead(readItem))
 
   return (
     <ui.Results>
@@ -51,6 +55,10 @@ const Results = ({ data, searchQuery }) => {
                           })
                       : () => loginWithRedirect()
                   }
+                  disabled={
+                    wantToReadStatus === 'success' &&
+                    wantToReadData[0].id === id
+                  }
                 >
                   Want to read
                 </Button>
@@ -75,6 +83,7 @@ const Results = ({ data, searchQuery }) => {
                           })
                       : () => loginWithRedirect()
                   }
+                  disabled={readStatus === 'success' && readData[0].id === id}
                 >
                   Read
                 </Button>

@@ -1,11 +1,11 @@
-import { fetchDELETE, fetchGET, fetchPOST } from './api-helpers'
-import { BASE_URL } from '../constants/api'
+import { fetchDELETE, fetchGET, fetchPOST, fetchGETNoAuth } from './api-helpers'
+import { BASE_URL, GOOGLE_BOOKS_BASE_URL } from '../constants/api'
 import { useAuth0 } from '@auth0/auth0-react'
 const audience = process.env.REACT_APP_WANT_TO_READ
 
 // want-to-read
 export const useGetWantToRead = () => {
-  const { getAccessTokenSilently, loginWithRedirect } = useAuth0()
+  const { getAccessTokenSilently } = useAuth0()
 
   const getWantToRead = async () => {
     try {
@@ -179,4 +179,43 @@ export const useDeleteFromDidRead = () => {
   }
 
   return { deleteFromDidRead }
+}
+
+// Google Books API
+
+export const fetchGoogleBooksVolumes = async (
+  query,
+  index,
+  orderBy,
+  filter
+) => {
+  try {
+    const response = await fetchGETNoAuth(
+      `${GOOGLE_BOOKS_BASE_URL}?q=${query}&startIndex=${index}&orderBy=${orderBy}&filter=${filter}`
+    )
+
+    if (!response.ok) {
+      return new Error(response.statusText)
+    }
+
+    const data = await response.json()
+    return data
+  } catch (error) {
+    return error
+  }
+}
+
+export const fetchGoogleBooksVolume = async (id) => {
+  try {
+    const response = await fetchGETNoAuth(`${GOOGLE_BOOKS_BASE_URL}/${id}`)
+
+    if (!response.ok) {
+      return new Error(response.statusText)
+    }
+
+    const data = await response.json()
+    return data
+  } catch (error) {
+    return error
+  }
 }

@@ -1,10 +1,11 @@
-import React from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
+import React from 'react'
+import { useAuth0 } from '@auth0/auth0-react'
+import * as ui from './ui'
 
 const SignupButton = () => {
-  const { loginWithRedirect } = useAuth0();
+  const { loginWithRedirect } = useAuth0()
   return (
-    <button
+    <ui.Button
       className='btn btn-primary btn-block'
       onClick={() =>
         loginWithRedirect({
@@ -13,8 +14,8 @@ const SignupButton = () => {
       }
     >
       Sign Up
-    </button>
-  );
-};
+    </ui.Button>
+  )
+}
 
-export default SignupButton;
+export default SignupButton

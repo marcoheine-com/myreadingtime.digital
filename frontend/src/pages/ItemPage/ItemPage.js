@@ -1,50 +1,57 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useParams } from 'react-router-dom'
-import useGoogleBooksApi from '../../hooks/useGoogleBooksApi'
 import { useAuth0 } from '@auth0/auth0-react'
-import { useMutation } from 'react-query'
+import { useQuery, useMutation } from 'react-query'
 import Button from '../../components/Button'
-import { API_BASE_URL } from '../../constants/api'
-import { useAddToWantToRead, useAddToDidRead } from '../../api/api'
+import {
+  useAddToWantToRead,
+  useAddToDidRead,
+  fetchGoogleBooksVolume,
+} from '../../api/api'
 
 import * as ui from './ui'
 
 const ItemPage = () => {
-  const { state, setUrl } = useGoogleBooksApi()
   const { id } = useParams()
   const { isAuthenticated, loginWithRedirect } = useAuth0()
   const { addToWantToRead } = useAddToWantToRead()
   const { addToDidRead } = useAddToDidRead()
-  const { mutate: mutateWantToRead } = useMutation(
-    'addToWantToRead',
-    (wantToReadItem) => addToWantToRead(wantToReadItem)
+
+  const { isLoading, isFetching, status, error, data } = useQuery(
+    ['fetchGoogleBooksVolume', id],
+    () => fetchGoogleBooksVolume(id),
+    {
+      refetchOnWindowFocus: false,
+    }
   )
 
-  const { mutate: mutateDidRead } = useMutation(
-    'addToDidRead',
-    (wantToReadItem) => addToDidRead(wantToReadItem)
+  const {
+    mutate: mutateWantToRead,
+    status: wantToReadStatus,
+    data: wantToReadData,
+  } = useMutation(['addToWantToRead'], (wantToReadItem) =>
+    addToWantToRead(wantToReadItem)
   )
 
-  useEffect(() => {
-    setUrl(`${API_BASE_URL}/${id}`)
-  }, [id, setUrl])
+  const {
+    mutate: mutateDidRead,
+    status: readStatus,
+    data: readData,
+  } = useMutation(['addToDidRead'], (readItem) => addToDidRead(readItem))
 
   const getSecureProtocol = (thumbnail) => {
     const url = thumbnail?.replace(/^http:\/\//i, 'https://')
     return url
   }
 
-  const { isLoading, isError, isSuccess, data } = state
-
-  if (isLoading)
+  if (isLoading || isFetching)
     return (
       <ui.Main>
         <ui.Loading>Loading...</ui.Loading>
       </ui.Main>
     )
 
-  if (isError || !isSuccess)
-    return <p>Oh oh! Something went wrong. Please try again!</p>
+  if (error) return <p>Oh oh! Something went wrong. Please try again!</p>
 
   const { volumeInfo = {}, saleInfo = {} } = data
   const {
@@ -65,7 +72,7 @@ const ItemPage = () => {
 
   return (
     <ui.Main>
-      {data && (
+      {status === 'success' && data && (
         <>
           <h3>{title}</h3>
 
@@ -118,6 +125,9 @@ const ItemPage = () => {
                     }
                   : () => loginWithRedirect()
               }
+              disabled={
+                wantToReadStatus === 'success' && wantToReadData[0].id === id
+              }
             >
               Want to read
             </Button>
@@ -141,6 +151,7 @@ const ItemPage = () => {
                     }
                   : () => loginWithRedirect()
               }
+              disabled={readStatus === 'success' && readData[0].id === id}
             >
               Read
             </Button>

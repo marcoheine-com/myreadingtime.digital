@@ -1,14 +1,14 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const Section = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
+`
 
-export const Headline = styled.h3`
+export const Headline = styled.h2`
   margin-bottom: 60px;
-`;
+`
 
 export const FeatureList = styled.ul`
   margin: 0;
@@ -34,9 +34,10 @@ export const FeatureList = styled.ul`
     grid-template-columns: repeat(3, 400px);
     grid-template-rows: 260px;
   }
-`;
+`
 
 export const Listitem = styled.li`
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -54,19 +55,19 @@ export const Listitem = styled.li`
       transform: rotate(-5deg) translateY(-5px);
     }
   }
-`;
+`
 
 export const FeatureHeadline = styled.h3`
   margin: 0;
   display: flex;
   align-items: center;
-`;
+`
 
 export const Paragraph = styled.p`
   line-height: 1.5;
-`;
+`
 
 export const Icon = styled.span`
   padding-right: 14px;
   font-size: 30px;
-`;
+`

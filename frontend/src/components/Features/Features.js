@@ -1,5 +1,6 @@
-import React from 'react';
-import * as ui from './ui';
+import React from 'react'
+import SignupButton from '../../components/SignupButton'
+import * as ui from './ui'
 
 const Features = () => {
   return (
@@ -23,6 +24,7 @@ const Features = () => {
             Search for all the information about the books you love and find out
             where to get them
           </ui.Paragraph>
+          <SignupButton />
         </ui.Listitem>
 
         <ui.Listitem>
@@ -37,6 +39,7 @@ const Features = () => {
           <ui.Paragraph>
             Make a list of books, you would like to read this year.
           </ui.Paragraph>
+          <SignupButton />
         </ui.Listitem>
 
         <ui.Listitem>
@@ -51,6 +54,7 @@ const Features = () => {
           <ui.Paragraph>
             Track your progress of the book you're currently reading.
           </ui.Paragraph>
+          <SignupButton />
         </ui.Listitem>
 
         <ui.Listitem>
@@ -66,6 +70,7 @@ const Features = () => {
           <ui.Paragraph>
             Keep track of all the great books you already read.
           </ui.Paragraph>
+          <SignupButton />
         </ui.Listitem>
 
         <ui.Listitem>
@@ -81,6 +86,7 @@ const Features = () => {
             This place is for you alone and your books. No sharing with friends
             or following.
           </ui.Paragraph>
+          <SignupButton />
         </ui.Listitem>
 
         <ui.Listitem>
@@ -96,10 +102,11 @@ const Features = () => {
             Set up a reading challenge: We all would like to read more, why not
             add a little gamification to it?
           </ui.Paragraph>
+          <SignupButton />
         </ui.Listitem>
       </ui.FeatureList>
     </ui.Section>
-  );
-};
+  )
+}
 
-export default Features;
+export default Features

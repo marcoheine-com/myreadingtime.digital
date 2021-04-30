@@ -11,6 +11,18 @@ export const fetchGET = async (url, accessToken) => {
   return response
 }
 
+export const fetchGETNoAuth = async (url) => {
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  })
+
+  return response
+}
+
 export const fetchPOST = async (url, accessToken, payload) => {
   const response = await fetch(url, {
     method: 'POST',
